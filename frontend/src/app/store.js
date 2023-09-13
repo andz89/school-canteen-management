@@ -3,14 +3,12 @@ import authReducer from "../features/authUser/authSlice";
 
 import { apiSlice } from "../features/api/apiSlice";
 
-// import postsReducer from "../features/posts/postsSlice";
-
+import foodsReducer from "../features/foods/foodsSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-
     [apiSlice.reducerPath]: apiSlice.reducer,
-    // posts: postsReducer,
+    foods: foodsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

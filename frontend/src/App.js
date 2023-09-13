@@ -14,6 +14,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Main from "./components/headerAndSidebar/Main";
 import Foods from "./pages/admin/Foods";
+import Orders from "./pages/admin/Orders";
+import Users from "./pages/admin/Users";
+import Tasks from "./pages/admin/Tasks";
 function App() {
   return (
     <>
@@ -42,6 +45,9 @@ function App() {
                 <Route element={<Main />}>
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/foods" element={<Foods />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/tasks" element={<Tasks />} />
 
                   <Route path="*" element={<NoPageFound />} />
                 </Route>
