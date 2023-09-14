@@ -7,10 +7,18 @@ const foodsSchema = mongoose.Schema(
       required: true,
     },
     price: {
-      type: Int,
+      type: Number,
       required: true,
     },
-    descripture: {
+    description: {
+      type: String,
+      required: true,
+    },
+    image_one: {
+      type: String,
+      required: true,
+    },
+    image_two: {
       type: String,
       required: true,
     },

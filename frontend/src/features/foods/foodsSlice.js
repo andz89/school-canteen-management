@@ -13,19 +13,22 @@ const foodsSlice = createSlice({
       reducer(state, action) {
         state.foods.push(action.payload);
       },
-      prepare({ food_name, price, description }) {
+      prepare({ food_name, price, description, createdAt, updatedAt, _id }) {
         return {
           payload: {
             food_name,
             price,
             description,
+            createdAt,
+            updatedAt,
+            _id,
           },
         };
       },
     },
     foodsFetched: (state, action) => {
       // Update the state with the posts received from the server
-      state.posts = action.payload;
+      state.foods = action.payload;
     },
 
     foodsEditted: (state, action) => {
@@ -39,11 +42,11 @@ const foodsSlice = createSlice({
       }
     },
     removeFood: (state, action) => {
-      const { postId } = action.payload;
-      const posts = state.posts.filter((post) => post._id !== postId);
+      const { foodId } = action.payload;
+      const foods = state.foods.filter((food) => food._id !== foodId);
 
-      if (posts) {
-        state.posts = posts;
+      if (foods) {
+        state.foods = foods;
       }
     },
   },
@@ -53,7 +56,7 @@ export const {
   foodAdded,
 
   foodsFetched,
-  removefood,
+  removeFood,
 
   postEditted,
 } = foodsSlice.actions;

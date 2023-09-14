@@ -2,11 +2,11 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { sub } from "date-fns";
 const initialState = {
-  posts: [],
+  foods: [],
 };
 
 const postsSlice = createSlice({
-  name: "posts",
+  name: "foods",
   initialState,
   reducers: {
     postAdded: {
@@ -35,9 +35,9 @@ const postsSlice = createSlice({
         };
       },
     },
-    postsFetched: (state, action) => {
+    addFetched: (state, action) => {
       // Update the state with the posts received from the server
-      state.posts = action.payload;
+      state.foods = action.payload;
     },
     commentAdded: (state, action) => {
       const { commentId, postId, name, comment, createdAt, userId } =
