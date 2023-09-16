@@ -55,7 +55,7 @@ const postsSlice = createSlice({
         });
       }
     },
-    postEditted: (state, action) => {
+    foodEditted: (state, action) => {
       const { postId, title, content, dateUpdated } = action.payload;
       const existingPost = state.posts.find((post) => post._id === postId);
 

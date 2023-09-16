@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 
 import Food from "../models/foodsModel.js";
-
+import { deleteImage } from "../helper/deleteImage.js";
 // @desc    add Post
 // @route   POST /api/users/addpost
 // @access  Private
@@ -81,14 +81,19 @@ const addComment = asyncHandler(async (req, res) => {
 const removeFood = asyncHandler(async (req, res) => {
   const foodId = req.body.foodId;
 
+  // const food = await Food.findById(foodId);
+
+  // let arrayImgs = [food.image_one, food.image_two];
+
+  // await deleteImage(arrayImgs)
   try {
     // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.
-
     const removedPost = await Food.findByIdAndRemove(foodId);
-    // Check if the post was found and removed successfully.
+    // Check if the post was found   and removed successfully.
     if (!removedPost) {
       return res.status(404).json({ message: "Post not found" });
     }
+
     res.json({ message: "Post removed successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
