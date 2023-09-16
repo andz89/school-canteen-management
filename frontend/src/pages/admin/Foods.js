@@ -127,7 +127,7 @@ const handleHideEditForm = (val)=>{
             <img
             draggable="false"
               className="h-48  select-none w-full object-cover md:w-48"
-              src={`http://localhost:3000/images/${food.image_one}`}
+              src={food.image_one}
               alt="Food Item"
             />
           </div>

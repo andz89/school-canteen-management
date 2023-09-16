@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
-
+import dotenv from "dotenv";
+dotenv.config();
 import Food from "../models/foodsModel.js";
 import { deleteImage } from "../helper/deleteImage.js";
 // @desc    add Post
@@ -33,7 +34,8 @@ const addFood = asyncHandler(async (req, res) => {
     image_one: req.body.image_one,
     image_two: req.body.image_two,
   });
-  console.log(food);
+  food.image_one = process.env.DOMAIN + food.image_one;
+  food.image_two = process.env.DOMAIN + food.image_two;
   res.json({ food });
 });
 // @desc    Get organizer posts
@@ -41,6 +43,8 @@ const addFood = asyncHandler(async (req, res) => {
 // @access  Private
 const getFoods = asyncHandler(async (req, res) => {
   const foods = await Food.find();
+  foods.image_one = process.env.DOMAIN + foods.image_one;
+  foods.image_two = process.env.DOMAIN + foods.image_two;
 
   if (foods) {
     res.json(foods);
