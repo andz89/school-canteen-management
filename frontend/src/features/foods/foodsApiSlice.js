@@ -37,7 +37,7 @@ export const foodsApiSlice = apiSlice.injectEndpoints({
       query: (data) => ({
         url: `${FOOD_URL}/EditFood`,
         method: "PUT",
-        body: { ...data },
+        body: data,
       }),
     }),
     uploadImage: builder.mutation({

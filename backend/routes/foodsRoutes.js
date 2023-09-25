@@ -3,6 +3,7 @@ import {
   addFood,
   getFoods,
   removeFood,
+  editFood,
 } from "../controllers/foodsController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import multer from "multer";
@@ -35,6 +36,21 @@ router.post(
     },
   ]),
   addFood
+);
+router.put(
+  "/editFood",
+  protect,
+  upload.fields([
+    {
+      name: "image_one",
+      maxCount: 1,
+    },
+    {
+      name: "image_two",
+      maxCount: 1,
+    },
+  ]),
+  editFood
 );
 // router.put("/addComment", protect, addComment);
 router.put("/removeFood", protect, removeFood);

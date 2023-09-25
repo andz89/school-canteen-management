@@ -43,8 +43,9 @@ const addFood = asyncHandler(async (req, res) => {
 // @access  Private
 const getFoods = asyncHandler(async (req, res) => {
   const foods = await Food.find();
-  foods.image_one = process.env.DOMAIN + foods.image_one;
-  foods.image_two = process.env.DOMAIN + foods.image_two;
+
+  // foods[0].image_one = process.env.DOMAIN + foods[0].image_one;
+  // foods[0].image_two = process.env.DOMAIN + foods[0].image_two;
 
   if (foods) {
     res.json(foods);
@@ -149,31 +150,48 @@ const removeComment = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-const editPost = asyncHandler(async (req, res) => {
-  const postId = req.body.postId;
-
+const editFood = asyncHandler(async (req, res) => {
+  const foodId = req.body.foodId;
+  console.log(foodId);
   try {
     // Use async/await with findById to ensure proper handling of asynchronous code.
-    const post = await Post.findById(postId);
-
+    const food = await Food.findById(foodId);
+    console.log(food);
     // Check if the post was found.
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+    if (!food) {
+      return res.status(404).json({ message: "item food not found" });
     }
 
-    // Update the post's properties based on the request body data.
-    post.title = req.body.title;
-    post.content = req.body.content;
-    post.name = req.body.name;
-    post.agency = req.body.agency;
-    post.dateUpdated = req.body.dateUpdated;
-    // Save the updated post.
-    await post.save();
+    req.files.image_one &&
+      req.files.image_one.forEach(async (e) => {
+        let arrayImgs = [food.image_one];
 
-    res.json(post.dateUpdated);
+        await deleteImage(arrayImgs);
+        food.image_one = e.filename;
+      });
+
+    req.files.image_two &&
+      req.files.image_two.forEach(async (e) => {
+        let arrayImgs = [food.image_two];
+
+        await deleteImage(arrayImgs);
+        food.image_two = e.filename;
+      });
+
+    // Update the food's properties based on the request body data.
+    food.food_name = req.body.food_name;
+    food.price = req.body.price;
+
+    food.description = req.body.description;
+    console.log(food);
+    // Save the updated foods.
+    await food.save();
+    food.image_one = process.env.DOMAIN + "/" + food.image_one;
+    food.image_two = process.env.DOMAIN + "/" + food.image_two;
+    res.json(food);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-export { addFood, getFoods, removeFood };
+export { addFood, getFoods, removeFood, editFood };
