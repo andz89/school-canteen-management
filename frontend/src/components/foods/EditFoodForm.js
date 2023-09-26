@@ -82,105 +82,109 @@ const EditFoodForm = ({ handleHideEditForm, editFoodId }) => {
   return (
     <>
       <section className="fixed top-0 left-0 right-0 z-50     p-4 overflow-x-hidden bg-slate-900 bg-opacity-40 overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  h-screen  flex items-center justify-center ">
-        <form className="flex flex-col bg-white w-[600px]   p-2  overflow-y-scroll h-[400px]">
-          <div className="flex justify-between items-center">
+        <form className="flex flex-col bg-white w-[600px]      overflow-y-scroll h-[500px]">
+          <div className="px-5 flex justify-between bg-white  items-center sticky top-0">
             <div className="bg-teal-700 p-2 rounded text-white font-semibold my-2">
-              Edit Post
+              Edit Food Item
             </div>
-            <div
-              className="bg-slate-300 p-1 rounded text-dark font-semibold text-sm my-2 cursor-pointer"
-              onClick={handleHideEditForm}
-            >
-              Close{" "}
+            <div className="flex justify-end w-1/2 gap-1 items-center">
+              <button
+                type="button"
+                className={
+                  canSave
+                    ? "text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:ring-orange-300 font-medium  my-5 rounded-lg text-sm px-5 py-2.5     dark:bg-orange-600   focus:outline-none  "
+                    : "text-gray-400 bg-gray-700   focus:ring-4 focus:ring-orange-300 font-medium my-5 rounded-lg text-sm px-5 py-2.5     dark:bg-orange-600   focus:outline-none   cursor-not-allowed"
+                }
+                onClick={onSubmit}
+                disabled={!canSave}
+              >
+                Publish
+              </button>
+              <button
+                type="button"
+                className="text-gray-100 bg-gray-700 hover:bg-gray-600  focus:ring-4   font-medium my-5 rounded-lg text-sm px-5 py-2.5      "
+                onClick={handleHideEditForm}
+              >
+                Close
+              </button>
             </div>
           </div>
+          <div className="p-5">
+            <div>
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Post Title:
+              </label>
+              <input
+                type="text"
+                id="first_name"
+                className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Big Event this coming 2023"
+                required
+                name="postTitle"
+                value={food_name}
+                onChange={onFood_nameChanged}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Price:
+              </label>
+              <input
+                type="text"
+                id="first_name"
+                className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Big Event this coming 2023"
+                required
+                name="foodPrice"
+                value={price}
+                onChange={onPriceChanged}
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="first_name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Post Title:
-            </label>
-            <input
-              type="text"
-              id="first_name"
-              className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Big Event this coming 2023"
-              required
-              name="postTitle"
-              value={food_name}
-              onChange={onFood_nameChanged}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="first_name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Price:
-            </label>
-            <input
-              type="text"
-              id="first_name"
-              className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Big Event this coming 2023"
-              required
-              name="foodPrice"
-              value={price}
-              onChange={onPriceChanged}
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="message"
-              className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Product description:
-            </label>
-            <textarea
-              rows={5}
-              className=" w-full mb-22   p-2.5   text-sm outline-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500   "
-              placeholder="Write your thoughts here..."
-              name="productDescription"
-              value={description}
-              onChange={onDescriptionChanged}
-            ></textarea>
-          </div>
-          <div className="  mt-5  w-full mb-6 group">
-            <input
-              type="file"
-              accept="image/*"
-              name="image_one"
-              onChange={onImageOneChanged}
-            />
-            <div className="px-5 py-3">
-              <img src={foodToEdit[0].image_one} alt="" width={300} />
+            <div>
+              <label
+                htmlFor="message"
+                className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Product description:
+              </label>
+              <textarea
+                rows={5}
+                className=" w-full mb-22   p-2.5   text-sm outline-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500   "
+                placeholder="Write your thoughts here..."
+                name="productDescription"
+                value={description}
+                onChange={onDescriptionChanged}
+              ></textarea>
             </div>
-            <input
-              className="mt-5"
-              type="file"
-              accept="image/*"
-              name="image_two"
-              onChange={onImageTwoChanged}
-            />{" "}
-            <div className="px-5 py-3">
-              <img src={foodToEdit[0].image_two} alt="" width={300} />
+            <div className="  mt-5  w-full mb-6 group">
+              <input
+                type="file"
+                accept="image/*"
+                name="image_one"
+                onChange={onImageOneChanged}
+              />
+              <div className="px-5 py-3">
+                <img src={foodToEdit[0].image_one} alt="" width={300} />
+              </div>
+              <input
+                className="mt-5"
+                type="file"
+                accept="image/*"
+                name="image_two"
+                onChange={onImageTwoChanged}
+              />{" "}
+              <div className="px-5 py-3">
+                <img src={foodToEdit[0].image_two} alt="" width={300} />
+              </div>
             </div>
           </div>
-          <button
-            type="button"
-            className={
-              canSave
-                ? "text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:ring-orange-300 font-medium  my-5 rounded-lg text-sm px-5 py-2.5     dark:bg-orange-600   focus:outline-none  "
-                : "text-gray-400 bg-gray-700   focus:ring-4 focus:ring-orange-300 font-medium my-5 rounded-lg text-sm px-5 py-2.5     dark:bg-orange-600   focus:outline-none   cursor-not-allowed"
-            }
-            onClick={onSubmit}
-            disabled={!canSave}
-          >
-            Publish
-          </button>
         </form>
       </section>
       {isLoading && <LoadingSpinner />}

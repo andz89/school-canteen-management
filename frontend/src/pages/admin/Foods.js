@@ -109,8 +109,8 @@ const handleHideEditForm = (val)=>{
               <small className="text-slate-500"> Published: </small>{" "}
               <TimeAgo timestamp={food.createdAt} />
               {food.createdAt !== food.updatedAt && (
-                <span>
-                  ;<small className="text-slate-500"> last update: </small>{" "}
+                <span className="block mt-[-10px]">
+                  <small className="text-slate-500"> last update: </small>{" "}
                   <TimeAgo timestamp={food.updatedAt} />
                 </span>
               )}

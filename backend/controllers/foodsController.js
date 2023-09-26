@@ -21,7 +21,7 @@ const addFood = asyncHandler(async (req, res) => {
 
   req.body.image_two = image_two;
   req.body.image_one = image_one;
-  console.log(req.body);
+
   if (!req.body.food_name || !req.body.price || !req.body.description) {
     res.status(400);
     throw new Error("Please add a text field");
@@ -86,11 +86,11 @@ const addComment = asyncHandler(async (req, res) => {
 const removeFood = asyncHandler(async (req, res) => {
   const foodId = req.body.foodId;
 
-  // const food = await Food.findById(foodId);
+  const food = await Food.findById(foodId);
 
-  // let arrayImgs = [food.image_one, food.image_two];
+  let arrayImgs = [food.image_one, food.image_two];
 
-  // await deleteImage(arrayImgs)
+  await deleteImage(arrayImgs);
   try {
     // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.
     const removedPost = await Food.findByIdAndRemove(foodId);
@@ -152,11 +152,11 @@ const removeComment = asyncHandler(async (req, res) => {
 });
 const editFood = asyncHandler(async (req, res) => {
   const foodId = req.body.foodId;
-  console.log(foodId);
+
   try {
     // Use async/await with findById to ensure proper handling of asynchronous code.
     const food = await Food.findById(foodId);
-    console.log(food);
+
     // Check if the post was found.
     if (!food) {
       return res.status(404).json({ message: "item food not found" });
@@ -183,7 +183,7 @@ const editFood = asyncHandler(async (req, res) => {
     food.price = req.body.price;
 
     food.description = req.body.description;
-    console.log(food);
+
     // Save the updated foods.
     await food.save();
     food.image_one = process.env.DOMAIN + "/" + food.image_one;

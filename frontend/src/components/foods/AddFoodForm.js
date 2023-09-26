@@ -57,8 +57,8 @@ const AddFoodForm = ({ hideAddForm }) => {
 
           _id: dataFromServer.food._id,
 
-          dateCreated: dataFromServer.food.dateCreated,
-          dateUpdated: dataFromServer.food.dateUpdated,
+          createdAt: dataFromServer.food.createdAt,
+          updatedAt: dataFromServer.food.updatedAt,
         };
 
         dispatch(foodAdded(data));
