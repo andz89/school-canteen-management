@@ -17,6 +17,7 @@ import Foods from "./pages/admin/Foods";
 import Orders from "./pages/admin/Orders";
 import Users from "./pages/admin/Users";
 import Tasks from "./pages/admin/Tasks";
+import FoodItem from "./components/foods/FoodItem";
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
                   path="/updatePasswordUser"
                   element={<UpdatePasswordUser />}
                 />
+                <Route path="/foodItem/:id" element={<FoodItem />} />
               </Route>
 
               <Route path="" element={<Private allowedRoles={["admin"]} />}>

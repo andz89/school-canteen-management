@@ -91,9 +91,6 @@ const handleHideEditForm = (val)=>{
 
   const hideAddForm = ()=> setShowAddForm((prev)=>!prev)
  
-  // const [image, setImage] = useState(null);
-  // const [uploadImage, { isLoading }] = useUploadImageMutation();
-
  
  
   const orderedFoods = foods

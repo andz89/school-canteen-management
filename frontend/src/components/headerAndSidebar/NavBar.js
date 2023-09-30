@@ -4,6 +4,7 @@ import { useLogoutMutation } from "../../features/authUser/usersApiSlice";
 import logo from "../../assets/ssct-logo.jpg";
 import { logout } from "../../features/authUser/authSlice";
 import { useNavigate } from "react-router-dom";
+import ButtonSpinner from "../ButtonSpinner";
 const NavBar = () => {
   const navigage = useNavigate();
   const dispatch = useDispatch();
@@ -53,7 +54,13 @@ const NavBar = () => {
                 onClick={logoutHanler}
                 className="flex-1 ml-3 bg-gray-300 rounded p-1 font-semibold hover:bg-gray-200 cursor-pointer text-slate-700 whitespace-nowrap"
               >
-                Sign Out
+                {isLoading ? (
+                  <div className="flex items-center">
+                    Signing out... <ButtonSpinner />{" "}
+                  </div>
+                ) : (
+                  "Sign Out "
+                )}
               </span>
             </div>
           </div>

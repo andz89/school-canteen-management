@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { FaUser } from "react-icons/fa";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { toast } from "react-toastify";
@@ -21,7 +21,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const [register, { isLoading }] = useRegisterMutation();
   const { userInfo } = useSelector((state) => state.auth);
- 
+
   useEffect(() => {
     if (userInfo) {
       navigate("/");

@@ -186,8 +186,8 @@ const editFood = asyncHandler(async (req, res) => {
 
     // Save the updated foods.
     await food.save();
-    food.image_one = process.env.DOMAIN + "/" + food.image_one;
-    food.image_two = process.env.DOMAIN + "/" + food.image_two;
+    // food.image_one = process.env.DOMAIN + "/" + food.image_one;
+    // food.image_two = process.env.DOMAIN + "/" + food.image_two;
     res.json(food);
   } catch (error) {
     res.status(500).json({ error: error.message });
