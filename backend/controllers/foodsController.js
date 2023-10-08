@@ -44,8 +44,8 @@ const addFood = asyncHandler(async (req, res) => {
 const getFoods = asyncHandler(async (req, res) => {
   const foods = await Food.find();
 
-  // foods[0].image_one = process.env.DOMAIN + foods[0].image_one;
-  // foods[0].image_two = process.env.DOMAIN + foods[0].image_two;
+  foods[0].image_one = process.env.DOMAIN + foods[0].image_one;
+  foods[0].image_two = process.env.DOMAIN + foods[0].image_two;
 
   if (foods) {
     res.json(foods);
