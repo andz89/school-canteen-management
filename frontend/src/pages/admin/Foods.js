@@ -90,7 +90,19 @@ const handleHideEditForm = (val)=>{
   }, []);
 
   const hideAddForm = ()=> setShowAddForm((prev)=>!prev)
- 
+  const maxCharacters = 45; // Set your desired maximum character length
+
+  // Call the truncateText function to limit the text to the specified number of characters
+  const truncateText = (text, maxLength) => {
+    // If the text length is greater than the maxLength, truncate it
+    if (text.length > maxLength) {
+      const truncatedText = text.slice(0, maxLength);
+      return `${truncatedText}...`;
+    }
+
+    // If the text length is less than or equal to the maxLength, return the original text
+    return text;
+  };
  
  
   const orderedFoods = foods
@@ -99,10 +111,28 @@ const handleHideEditForm = (val)=>{
 
   const renderedFoods = orderedFoods?.map((food) => (
     <article key={food._id} className="my-4">
-      <div className=" relative z-0 w-full   p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   ">
+      <div className=" relative z-0 w-[300px] p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   ">
     
-      <div className="flex justify-between w-full items-center gap-1  ">
-      <div>
+      <div className="flex justify-between   items-center gap-1  ">
+  
+        <div className="flex items-center">
+        <div onClick={()=>onClickDelete(food._id)}><FaTrash className="text-slate-700  hover:bg-slate-300 p-1 rounded cursor-pointer" size={"1.5em"}/></div>
+          <div onClick={()=>onClickEdit(food._id)}><FaEdit  className="text-slate-700 hover:bg-slate-300 p-1 rounded cursor-pointer" size={"1.7em"}/></div>
+        </div>
+        
+
+        </div>
+        <div className="  ">
+          <div className="md:flex-shrink-0">
+            <img
+            draggable="false"
+              className="h-48  select-none w-full object-cover  "
+              src={ food.image_one}
+              alt="Food Item"
+            />
+          </div>
+          <div className="py-2 px-2 w-full ">
+          <div>
               <small className="text-slate-500"> Published: </small>{" "}
               <TimeAgo timestamp={food.createdAt} />
               {food.createdAt !== food.updatedAt && (
@@ -112,29 +142,12 @@ const handleHideEditForm = (val)=>{
                 </span>
               )}
             </div>
-        <div className="flex items-center">
-        <div onClick={()=>onClickDelete(food._id)}><FaTrash className="text-slate-700  hover:bg-slate-300 p-1 rounded cursor-pointer" size={"1.5em"}/></div>
-          <div onClick={()=>onClickEdit(food._id)}><FaEdit  className="text-slate-700 hover:bg-slate-300 p-1 rounded cursor-pointer" size={"1.7em"}/></div>
-        </div>
-        
-
-        </div>
-        <div className="md:flex items-start leading-none">
-          <div className="md:flex-shrink-0">
-            <img
-            draggable="false"
-              className="h-48  select-none w-full object-cover md:w-48"
-              src={ food.image_one}
-              alt="Food Item"
-            />
-          </div>
-          <div className="py-2 px-2 w-full ">
             <div className=" leading-none mb-0 uppercase tracking-wide text-sm text-indigo-500 font-semibold">
               {food.food_name}
             </div>
             <div className="mt-2 text-gray-900 w-44  leading-none">{food.price} pesos</div>
          
-            <p className="mt-2 text-gray-500 w-full leading-normal ">{food.description}</p>
+            <p className="mt-2 h-[50px] text-gray-500 w-full leading-normal ">{truncateText(food.description, maxCharacters)}</p>
      
           </div>
         </div>
@@ -167,8 +180,10 @@ const handleHideEditForm = (val)=>{
         )}
       </div>
       {showAddForm &&  <AddFoodForm hideAddForm={hideAddForm}/>}
+          <div className="flex justify-start flex-wrap bg-orange-300 w-full p-5 gap-2">
+          {renderedFoods}
+          </div>
 
-      {renderedFoods}
   
     </div>
          
