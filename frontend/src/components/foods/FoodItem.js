@@ -50,7 +50,7 @@ const FoodItem = () => {
           key={e._id}
         >
           <div className="p-4 mx-auto">
-            <div className="bg-white   w-[450px] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-white   lg:w-[450px] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <img
                 className="rounded-t-lg"
                 src={e.image_one}
