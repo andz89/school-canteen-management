@@ -53,7 +53,7 @@ const FoodItem = () => {
             <div className="bg-white   w-[450px] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <img
                 className="rounded-t-lg"
-                src={"http://localhost:3000/" + e.image_one}
+                src={e.image_one}
                 alt=""
                 style={{
                   width: "100%", // Set the image width to 100% to fit the container

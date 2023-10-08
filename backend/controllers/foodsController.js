@@ -45,10 +45,10 @@ const getFoods = asyncHandler(async (req, res) => {
   const foods = await Food.find();
 
   if (foods) {
-    foods.forEach((element) => {
-      element.image_one = process.env.DOMAIN + element.image_one;
-      element.image_two = process.env.DOMAIN + element.image_two;
-    });
+    // foods.forEach((element) => {
+    //   element.image_one = process.env.DOMAIN + element.image_one;
+    //   element.image_two = process.env.DOMAIN + element.image_two;
+    // });
     res.json(foods);
   } else {
     res.status(404);
