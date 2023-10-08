@@ -26,11 +26,13 @@ const Header = () => {
       {/* {isLoading && <LoadingSpinner />} */}
       <header className="drop-shadow-lg bg-white border-b-2 border-orange-200 flex flex-col sm:flex-row justify-between items-center p-2">
         <div className="text-center sm:text-left">
-          <Link className="flex ml-2 md:mr-24">
-            <img src={logo} className="h-8 mr-3" alt="FlowBite Logo" />
-            <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-              SSCT School Canteen Management
-            </span>
+          <Link className=" ">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <img src={logo} className=" w-24" />
+              <div className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+                SSCT School Canteen Management
+              </div>
+            </div>
           </Link>
         </div>
         <ul className="flex  sm:text-base    gap-4 mx-3 items-center font-semibold">

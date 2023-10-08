@@ -35,7 +35,7 @@ const FoodItem = () => {
   return (
     <>
       <Header />
-      <div className="mt-3 mx-4">
+      <div className="mt-3  ">
         <Link
           className="bg-slate-500 p-2 rounded cursor-pointer   text-white font-semibold"
           to={"/"}
@@ -45,12 +45,9 @@ const FoodItem = () => {
       </div>
 
       {food.map((e) => (
-        <div
-          className="flex items-center justify-start flex-wrap w-full"
-          key={e._id}
-        >
+        <div className="flex    sm:w-[650px]   sm:mx-auto" key={e._id}>
           <div className="p-4 mx-auto">
-            <div className="bg-white   lg:w-[450px] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-white   border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <img
                 className="rounded-t-lg"
                 src={e.image_one}
@@ -77,7 +74,7 @@ const FoodItem = () => {
                   </div>
                 </div>
 
-                <p className="   mb-3 font-normal text-gray-700 dark:text-gray-400  ">
+                <p className="  sm:w-[650px] mb-3 font-normal text-gray-700 dark:text-gray-400  ">
                   {e.description}
                 </p>
               </div>

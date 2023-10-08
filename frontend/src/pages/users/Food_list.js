@@ -42,11 +42,11 @@ const Food_list = () => {
   return (
     <>
       <Header />
-      <div className="flex items-center justify-start flex-wrap w-full p-5 gap-4">
+      <div className="flex items-center   justify-start flex-wrap w-full p-5 gap-4 bg-orange-200  ">
         {foods.map((food) => (
           <div
             key={food._id}
-            className="bg-white hover:bg-slate-100 w-[300px]  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="bg-white hover:bg-slate-100 w-[300px]  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto"
           >
             <Link to={"/foodItem/" + food._id}>
               <img
