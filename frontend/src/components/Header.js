@@ -38,7 +38,7 @@ const Header = () => {
         <ul className="flex  sm:text-base    gap-4 mx-3 items-center font-semibold">
           {userInfo ? (
             <>
-              {userInfo.data?.user.roles[0] === "user" ? (
+              {userInfo.data?.user.roles[0] === "user" && (
                 <>
                   <li>
                     <Link to={"/"}>Foods</Link>
@@ -46,17 +46,8 @@ const Header = () => {
                   <li>
                     <Link to={"/profile-user"}>Profile</Link>
                   </li>
-                </>
-              ) : (
-                <>
                   <li>
-                    <Link to={"/dashboard"}>Dashboard</Link>
-                  </li>
-                  <li>
-                    <Link to={"/postsOrganizer"}>Posts</Link>
-                  </li>
-                  <li>
-                    <Link to={"/profile-organizer"}>Profile</Link>
+                    <Link to={"/cart"}>Cart</Link>
                   </li>
                 </>
               )}

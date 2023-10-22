@@ -18,6 +18,7 @@ import Orders from "./pages/admin/Orders";
 import Users from "./pages/admin/Users";
 import Tasks from "./pages/admin/Tasks";
 import FoodItem from "./components/foods/FoodItem";
+import Cart from "./pages/users/Cart";
 function App() {
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
               <Route path="" element={<Private allowedRoles={["user"]} />}>
                 <Route path="/profile-user" element={<ProfileUser />} />
                 <Route path="/" element={<FoodList />} />
+                <Route path="/cart" element={<Cart />} />
 
                 <Route path="*" element={<NoPageFound />} />
                 <Route

@@ -55,8 +55,6 @@ const AddFoodForm = ({ hideAddForm }) => {
           image_one: dataFromServer.food.image_one,
           image_two: dataFromServer.food.image_two,
 
-          _id: dataFromServer.food._id,
-
           createdAt: dataFromServer.food.createdAt,
           updatedAt: dataFromServer.food.updatedAt,
         };
