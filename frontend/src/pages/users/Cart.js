@@ -13,6 +13,7 @@ import {
 } from "../../features/carts/cartsApiSlice";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import MiniLoading from "../../components/MiniLoading";
+import Checkout from "../../components/order/Checkout";
 
 const Food_list = () => {
   const [getCart, { isLoading: getCartLoading }] = useGetCartMutation();
@@ -21,7 +22,7 @@ const Food_list = () => {
   const { carts } = useSelector((state) => state.carts);
   const dispatch = useDispatch();
   const [selection, setSelection] = useState([]);
-
+  const [checkout, setCheckout] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -224,15 +225,26 @@ const Food_list = () => {
         </div>
       ) : (
         <div>
-          {" "}
+          {checkout && (
+            <Checkout orders={selection} setCheckout={setCheckout} />
+          )}{" "}
           <div className="flex justify-between items-center p-2 font-semibold   sticky top-0 z-10">
             <div className="text-2xl text-slate-500">
               {" "}
               {selection.length > 0 && <div> {selection.length} Selected</div>}
             </div>
-            <div className="bg-orange-700 cursor-pointer mr-3 p-2 rounded text-white">
-              Check out
-            </div>
+            {selection.length > 0 ? (
+              <div
+                onClick={() => setCheckout(true)}
+                className="bg-orange-700 cursor-pointer mr-3 p-2 rounded text-white"
+              >
+                Check out
+              </div>
+            ) : (
+              <div className="bg-slate-300 text-slate-600 cursor-pointer mr-3 p-2 rounded text-white">
+                Check out
+              </div>
+            )}
           </div>
           <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -245,17 +257,17 @@ const Food_list = () => {
                   >
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                       <div className="flex items-center">
-                        <input
-                          onChange={(e) => handleSelection(food)}
-                          id={food.food_id}
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded   dark:bg-gray-700 dark:border-gray-600"
-                        />
                         <label
                           forhtml={food.food_id}
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                          className="cursor-pointer ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center gap-2"
                         >
+                          <input
+                            onChange={(e) => handleSelection(food)}
+                            id={food.food_id}
+                            type="checkbox"
+                            value=""
+                            className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded   dark:bg-gray-700 dark:border-gray-600"
+                          />
                           Select
                         </label>
                       </div>
