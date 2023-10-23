@@ -50,6 +50,8 @@ const Food_list = () => {
       price: data.price,
       description: data.description,
       food_id: data._id,
+      quantity: 1,
+      orig_price: data.price,
       image_one: removeDomainFromURL(data.image_one),
     };
 

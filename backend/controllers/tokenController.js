@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../utils/generateToken.js";
 
 const handleRefreshToken = asyncHandler(async (req, res) => {
+  console.log("token");
   let token;
 
   token = req.cookies.jwt;

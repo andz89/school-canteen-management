@@ -23,6 +23,7 @@ const authUser = asyncHandler(async (req, res) => {
     };
     // create JWTs
     const accessToken = generateAccessToken(res, user.name, user.roles);
+    console.log(accessToken);
     generateRefreshToken(res, user);
 
     res.json({ data, accessToken });

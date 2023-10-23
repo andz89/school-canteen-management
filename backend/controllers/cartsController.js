@@ -25,9 +25,11 @@ const addFoodToCart = asyncHandler(async (req, res) => {
     description: req.body.description,
     image_one: req.body.image_one,
     food_id: req.body.food_id,
+    quantity: req.body.quantity,
+    orig_price: req.body.orig_price,
   });
-  foodCart.image_one = process.env.DOMAIN + foodCart.image_one;
-
+  // foodCart.image_one = process.env.DOMAIN + foodCart.image_one;
+  console.log(foodCart);
   res.json({ foodCart });
 });
 // @desc    Get organizer posts
@@ -37,9 +39,9 @@ const getFoodsFromCart = asyncHandler(async (req, res) => {
   const carts = await Cart.find();
 
   if (carts) {
-    carts.forEach((element) => {
-      element.image_one = process.env.DOMAIN + element.image_one;
-    });
+    // carts.forEach((element) => {
+    //   element.image_one = process.env.DOMAIN + element.image_one;
+    // });
     res.json(carts);
   } else {
     res.status(404);
