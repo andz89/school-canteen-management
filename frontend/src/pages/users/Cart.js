@@ -241,7 +241,7 @@ const Food_list = () => {
                 Check out
               </div>
             ) : (
-              <div className="bg-slate-300 text-slate-600 cursor-pointer mr-3 p-2 rounded text-white">
+              <div className="bg-slate-300 text-slate-500 cursor-pointer mr-3 p-2 rounded  ">
                 Check out
               </div>
             )}

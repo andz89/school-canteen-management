@@ -22,7 +22,7 @@ const Checkout = ({ orders, setCheckout }) => {
               {orders.map((food) => (
                 <tr
                   key={food.food_id}
-                  className="bg-white flex  flex-col justify-around sm:flex-row items-center w-full border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="bg-white flex  justify-around   items-center w-full border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <td className="  p-4">
                     <img
