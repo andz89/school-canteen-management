@@ -4,17 +4,24 @@ import { useSelector, useDispatch } from "react-redux";
 import logo from "../assets/ssct-logo.jpg";
 import { useLogoutMutation } from "../features/authUser/usersApiSlice";
 import { logout } from "../features/authUser/authSlice";
-// import LoadingSpinner from "./LoadingSpinner";
+
+import { ordersFetched } from "../features/orders/ordersSlice";
+import { foodsFetched } from "../features/foods/foodsSlice";
+import { cartsFetched } from "../features/carts/cartsSlice";
 
 const Header = () => {
   const navigage = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+
   const [logoutApiCall, { isLoading }] = useLogoutMutation();
   const logoutHanler = async () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      dispatch(ordersFetched([]));
+      dispatch(foodsFetched([]));
+      dispatch(cartsFetched([]));
       navigage("/");
     } catch (error) {
       console.log(error);

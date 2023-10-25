@@ -218,7 +218,7 @@ const Food_list = () => {
   const doneCheckout = async () => {
     try {
       const cartIdsToRemove = selection.map((item) => item._id);
-      console.log(cartIdsToRemove);
+
       for (const cartId of cartIdsToRemove) {
         await deleteFoodFromCart({ cartId }).unwrap();
         dispatch(removeCart({ cartId }));

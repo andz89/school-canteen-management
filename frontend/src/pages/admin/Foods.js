@@ -180,7 +180,7 @@ const Foods = () => {
         ) : (
           <div
             onClick={onClickShowForm}
-            className=" bg-orange-500 flex text-white cursor-pointer hover:bg-orange-600 items-center gap-2 rounded p-1 "
+            className=" bg-green-800 flex text-white cursor-pointer hover:bg-green-600 items-center gap-2 rounded p-1 "
           >
             {" "}
             <FaPlus /> Add Food{" "}
@@ -188,7 +188,7 @@ const Foods = () => {
         )}
       </div>
       {showAddForm && <AddFoodForm hideAddForm={hideAddForm} />}
-      <div className="flex justify-start flex-wrap bg-orange-300 w-full p-5 gap-2">
+      <div className="flex justify-start flex-wrap bg-green-100 w-full p-5 gap-2">
         {renderedFoods}
       </div>
     </div>

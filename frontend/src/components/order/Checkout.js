@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useSetNewOrderMutation } from "../../features/orders/ordersApiSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const Checkout = ({ orders, setCheckout, doneCheckout }) => {
   const navigate = useNavigate();
   const [setNewOrder, { isLoading: setNewOrderLoading }] =
     useSetNewOrderMutation();
-
+  const { userInfo } = useSelector((state) => state.auth);
   const subtotal = orders.reduce(
     (accumulator, food) => accumulator + food.price,
     0
@@ -15,7 +16,13 @@ const Checkout = ({ orders, setCheckout, doneCheckout }) => {
   const placeOrder = async () => {
     const newOrder = {
       orders: orders,
-      details: { ref: reference, status: "Preparing", subtotal: subtotal },
+      details: {
+        ref: reference,
+        status: "Preparing",
+        subtotal: subtotal,
+        buyerName: userInfo.data.user.name,
+        buyerEmail: userInfo.data.user.email,
+      },
     };
 
     try {
