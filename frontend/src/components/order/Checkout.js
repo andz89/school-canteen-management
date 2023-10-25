@@ -1,8 +1,32 @@
-const Checkout = ({ orders, setCheckout }) => {
+import { useState } from "react";
+import { useSetNewOrderMutation } from "../../features/orders/ordersApiSlice";
+import { useNavigate } from "react-router-dom";
+
+const Checkout = ({ orders, setCheckout, doneCheckout }) => {
+  const navigate = useNavigate();
+  const [setNewOrder, { isLoading: setNewOrderLoading }] =
+    useSetNewOrderMutation();
+
   const subtotal = orders.reduce(
     (accumulator, food) => accumulator + food.price,
     0
   );
+  const [reference, setReference] = useState("");
+  const placeOrder = async () => {
+    const newOrder = {
+      orders: orders,
+      details: { ref: reference, status: "Preparing", subtotal: subtotal },
+    };
+
+    try {
+      const data = await setNewOrder(newOrder).unwrap();
+      setCheckout(false);
+      await doneCheckout();
+      navigate("/order");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50   w-full p-4 overflow-x-hidden bg-slate-900 bg-opacity-40 overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  h-screen  flex items-center justify-center ">
@@ -63,6 +87,7 @@ const Checkout = ({ orders, setCheckout }) => {
             <div>
               Gcash reference code:{" "}
               <input
+                onChange={(e) => setReference(e.target.value)}
                 type="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                 placeholder="Ex. 21km21"
@@ -79,9 +104,18 @@ const Checkout = ({ orders, setCheckout }) => {
           >
             Cancel
           </div>
-          <div className="bg-orange-700 font-semibold rounded p-2 w-full text-center text-white cursor-pointer">
-            Place order
-          </div>
+          {setNewOrderLoading ? (
+            <div className="bg-slate-800 font-semibold rounded p-2 w-full text-center text-white cursor-pointer">
+              Sending . . .
+            </div>
+          ) : (
+            <div
+              onClick={() => placeOrder(orders)}
+              className="bg-orange-700 font-semibold rounded p-2 w-full text-center text-white cursor-pointer"
+            >
+              Place order
+            </div>
+          )}
         </div>
       </div>
     </div>

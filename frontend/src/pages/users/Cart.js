@@ -215,6 +215,41 @@ const Food_list = () => {
     });
     dispatch(cartsFetched(updatedCart));
   };
+  const doneCheckout = async () => {
+    try {
+      const cartIdsToRemove = selection.map((item) => item._id);
+      console.log(cartIdsToRemove);
+      for (const cartId of cartIdsToRemove) {
+        await deleteFoodFromCart({ cartId }).unwrap();
+        dispatch(removeCart({ cartId }));
+      }
+
+      setSelection([]);
+
+      toast.success("Order sent Successfully", {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("Something went wrong", {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return (
     <>
       {deleteLoading && <LoadingSpinner />}
@@ -226,7 +261,11 @@ const Food_list = () => {
       ) : (
         <div>
           {checkout && (
-            <Checkout orders={selection} setCheckout={setCheckout} />
+            <Checkout
+              orders={selection}
+              setCheckout={setCheckout}
+              doneCheckout={doneCheckout}
+            />
           )}{" "}
           <div className="flex justify-between items-center p-2 font-semibold   sticky top-0 z-10">
             <div className="text-2xl text-slate-500">

@@ -1,0 +1,18 @@
+import express from "express";
+import { setNewOrder, getOrders } from "../controllers/ordersController.js";
+import { protect } from "../middleware/authMiddleware.js";
+
+const router = express.Router();
+
+router.post(
+  "/setNewORder",
+  protect,
+
+  setNewOrder
+);
+
+// router.put("/removeFoodFromCart", protect, removeFoodToCart);
+
+router.route("/").get(protect, getOrders);
+
+export default router;

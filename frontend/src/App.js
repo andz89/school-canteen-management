@@ -19,6 +19,7 @@ import Users from "./pages/admin/Users";
 import Tasks from "./pages/admin/Tasks";
 import FoodItem from "./components/foods/FoodItem";
 import Cart from "./pages/users/Cart";
+import Order from "./pages/users/Order";
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/profile-user" element={<ProfileUser />} />
                 <Route path="/" element={<FoodList />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/order" element={<Order />} />
 
                 <Route path="*" element={<NoPageFound />} />
                 <Route
@@ -69,7 +71,6 @@ function App() {
             </Route>
           </Routes>
         </div>
-        ;
       </Router>
       <ToastContainer />
     </>

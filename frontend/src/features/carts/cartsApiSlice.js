@@ -20,32 +20,11 @@ export const cartsApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    getFood: builder.mutation({
-      query: () => ({
-        url: `${CART_URL}`,
-        method: "GET",
-      }),
-    }),
-
     deleteFoodFromCart: builder.mutation({
       query: (data) => ({
         url: `${CART_URL}/removeFoodFromCart`,
         method: "PUT",
         body: data,
-      }),
-    }),
-    EditFood: builder.mutation({
-      query: (data) => ({
-        url: `${CART_URL}/EditFood`,
-        method: "PUT",
-        body: data,
-      }),
-    }),
-    uploadImage: builder.mutation({
-      query: (formData) => ({
-        url: `${CART_URL}/upload-image`, // The endpoint for image upload
-        method: "POST",
-        body: formData,
       }),
     }),
   }),

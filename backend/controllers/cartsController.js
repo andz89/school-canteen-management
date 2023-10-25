@@ -55,6 +55,7 @@ const removeFoodToCart = asyncHandler(async (req, res) => {
   try {
     // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.
     const removedCart = await Cart.findByIdAndRemove(foodId);
+    console.log(removedCart);
     // Check if the Cart was found   and removed successfully.
     if (!removedCart) {
       return res.status(404).json({ message: "cart not found" });

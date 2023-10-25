@@ -10,6 +10,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import tokenRoutes from "./routes/tokenRoutes.js";
 import foodsRoutes from "./routes/foodsRoutes.js";
 import cartsRoutes from "./routes/cartsRoutes.js";
+import ordersRoutes from "./routes/ordersRoutes.js";
 
 const port = process.env.PORT || 5000;
 
@@ -27,6 +28,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/token", tokenRoutes);
 app.use("/api/foods", foodsRoutes);
 app.use("/api/carts", cartsRoutes);
+app.use("/api/orders", ordersRoutes);
 
 app.use(express.static("backend/public/images"));
 if (process.env.NODE_ENV === "production") {

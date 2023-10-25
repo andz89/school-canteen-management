@@ -44,10 +44,13 @@ const Header = () => {
                     <Link to={"/"}>Foods</Link>
                   </li>
                   <li>
-                    <Link to={"/profile-user"}>Profile</Link>
+                    <Link to={"/cart"}>Cart</Link>
                   </li>
                   <li>
-                    <Link to={"/cart"}>Cart</Link>
+                    <Link to={"/order"}>Orders</Link>
+                  </li>
+                  <li>
+                    <Link to={"/profile-user"}>Profile</Link>
                   </li>
                 </>
               )}

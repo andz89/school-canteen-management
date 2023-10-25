@@ -95,7 +95,7 @@ const Food_list = () => {
           <MiniLoading />
         </div>
       ) : (
-        <div className="flex justify-center   flex-wrap w-full p-5 gap-2 bg-orange-200  ">
+        <div className="flex justify-center   flex-wrap w-full p-5 gap-2 bg-green-100  ">
           {foods.map((food) => (
             <div
               key={food._id}
