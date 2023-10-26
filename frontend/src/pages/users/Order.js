@@ -55,7 +55,13 @@ const Order = () => {
               <div className="text-slate-600"> {timeAgo(order.createdAt)} </div>
 
               <div className="flex justify-between items-center gap-3">
-                <div className="bg-yellow-300 uppercase font-semibold  p-2 rounded text-center text-slate-800   my-1  ">
+                <div
+                  className={` uppercase font-semibold  p-2 rounded text-center    my-1  ${
+                    order.details.status === "complete"
+                      ? "bg-green-700 text-slate-100"
+                      : "bg-yellow-300 text-slate-800"
+                  }`}
+                >
                   {order.details.status}
                 </div>
                 <div className="text-slate-600 text-[14px]">
@@ -65,9 +71,7 @@ const Order = () => {
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3">
-                      Product name
-                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
                     <th scope="col" className="px-6 py-3">
                       Qty
                     </th>
@@ -125,7 +129,7 @@ const Order = () => {
                 <div className="text-slate-600 text-[14px] ">
                   reference code: {order.details.ref}{" "}
                 </div>
-                <div className=" bg-green-800   font-semibold  p-2 rounded text-center text-white   my-1 w-[200px] ">
+                <div className=" bg-slate-300   font-semibold  p-2 rounded text-center text-slate-800   my-1 w-[200px] ">
                   Subtotal: ₱ {order.details.subtotal}
                 </div>
               </div>

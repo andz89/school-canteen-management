@@ -35,9 +35,9 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    EditFood: builder.mutation({
+    editOrder: builder.mutation({
       query: (data) => ({
-        url: `${ORDER_URL}/EditFood`,
+        url: `${ORDER_URL}/editOrder`,
         method: "PUT",
         body: data,
       }),
@@ -52,4 +52,8 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useSetNewOrderMutation, useGetOrdersMutation } = ordersApiSlice;
+export const {
+  useSetNewOrderMutation,
+  useGetOrdersMutation,
+  useEditOrderMutation,
+} = ordersApiSlice;

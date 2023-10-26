@@ -47,5 +47,30 @@ const removeFoodToCart = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+const editOrder = asyncHandler(async (req, res) => {
+  const orderId = req.body.orderId;
+  const status = req.body.status;
 
-export { setNewOrder, getOrders };
+  try {
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: "Item order not found" });
+    }
+
+    // Update the food's properties based on the request body data.
+    order.details.status = status;
+
+    // Mark the 'details' field as modified
+    order.markModified("details");
+    // Save the updated order.
+    const updatedOrder = await order.save();
+
+    // Respond with the updated order data.
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+export { setNewOrder, getOrders, editOrder };

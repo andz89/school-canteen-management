@@ -20,6 +20,8 @@ import Tasks from "./pages/admin/Tasks";
 import FoodItem from "./components/foods/FoodItem";
 import Cart from "./pages/users/Cart";
 import Order from "./pages/users/Order";
+import PickupOders from "./pages/admin/PickupOrders";
+import CompleteOrders from "./pages/admin/CompleteOrders";
 function App() {
   return (
     <>
@@ -54,6 +56,8 @@ function App() {
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/pickUpOrders" element={<PickupOders />} />
+                  <Route path="/CompleteOrders" element={<CompleteOrders />} />
 
                   <Route path="*" element={<NoPageFound />} />
                 </Route>

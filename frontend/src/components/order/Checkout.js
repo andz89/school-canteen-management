@@ -18,7 +18,7 @@ const Checkout = ({ orders, setCheckout, doneCheckout }) => {
       orders: orders,
       details: {
         ref: reference,
-        status: "Preparing",
+        status: "preparing",
         subtotal: subtotal,
         buyerName: userInfo.data.user.name,
         buyerEmail: userInfo.data.user.email,

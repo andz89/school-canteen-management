@@ -1,17 +1,17 @@
 import express from "express";
-import { setNewOrder, getOrders } from "../controllers/ordersController.js";
+import {
+  setNewOrder,
+  getOrders,
+  editOrder,
+} from "../controllers/ordersController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/setNewORder",
-  protect,
-
-  setNewOrder
-);
+router.post("/setNewORder", protect, setNewOrder);
 
 // router.put("/removeFoodFromCart", protect, removeFoodToCart);
+router.put("/editOrder", protect, editOrder);
 
 router.route("/").get(protect, getOrders);
 
