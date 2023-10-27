@@ -29,6 +29,8 @@ const addFood = asyncHandler(async (req, res) => {
 
   const food = await Food.create({
     food_name: req.body.food_name,
+    category: req.body.category,
+
     price: req.body.price,
     description: req.body.description,
     image_one: req.body.image_one,

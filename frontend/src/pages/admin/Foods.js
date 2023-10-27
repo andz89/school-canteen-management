@@ -2,27 +2,29 @@ import React from "react";
 import Label from "../../components/headerAndSidebar/Label";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { foodsFetched } from "../../features/foods/foodsSlice";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import TimeAgo from "../../components/foods/TimeAgo";
 import { removeFood } from "../../features/foods/foodsSlice";
 import {
-  useAddFoodMutation,
   useGetFoodsMutation,
   useDeleteFoodMutation,
-  useUploadImageMutation,
 } from "../../features/foods/foodsApiSlice";
 // import LoadingSpinner from "../LoadingSpinner";
 import { toast } from "react-toastify";
-
+import {
+  MdOutlineNoMeals,
+  MdOutlineFastfood,
+  MdOutlineEmojiFoodBeverage,
+} from "react-icons/md";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import EditFoodForm from "../../components/foods/EditFoodForm";
 import AddFoodForm from "../../components/foods/AddFoodForm";
 
 const Foods = () => {
   const dispatch = useDispatch();
-
+  const [category, setCategory] = useState("meals");
   const [getFoods, { isLoading: getFoodsLoading }] = useGetFoodsMutation();
   const [DeleteFood, { isLoading: deleteLoading }] = useDeleteFoodMutation();
   const { foods } = useSelector((state) => state.foods);
@@ -99,8 +101,11 @@ const Foods = () => {
     // If the text length is less than or equal to the maxLength, return the original text
     return text;
   };
-
-  const orderedFoods = foods
+  const changeCategory = (category) => {
+    setCategory(category);
+  };
+  const categorized_foods = foods.filter((food) => food.category === category);
+  const orderedFoods = categorized_foods
     .slice()
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
@@ -146,6 +151,7 @@ const Foods = () => {
             <div className=" leading-none mb-0 uppercase tracking-wide text-sm text-indigo-500 font-semibold">
               {food.food_name}
             </div>
+
             <div className="mt-2 text-gray-900 w-44  leading-none">
               {food.price} pesos
             </div>
@@ -169,6 +175,46 @@ const Foods = () => {
 
       {deleteLoading && <LoadingSpinner />}
       <Label>Foods</Label>
+      <div className=" border-b border-gray-200 dark:border-gray-700 w-full flex justify-center">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <li className="gap-1 flex  mx-5 items-center justify-center">
+            <MdOutlineNoMeals size={"1.2rem"} />
+            <Link
+              id="meals"
+              onClick={(e) => changeCategory(e.target.id)}
+              className={`${
+                category === "meals" && "text-green-600 border-green-700"
+              }   py-4   border-b-2  rounded-t-lg  hover:text-green-600`}
+            >
+              Meals
+            </Link>
+          </li>
+          <li className="gap-1 flex  mx-5 items-center justify-center">
+            <MdOutlineFastfood size={"1.2rem"} />
+            <Link
+              id="snacks"
+              onClick={(e) => changeCategory(e.target.id)}
+              className={`${
+                category === "snacks" && "text-green-600 border-green-700"
+              }   py-4   border-b-2  rounded-t-lg  hover:text-green-600`}
+            >
+              Snacks
+            </Link>
+          </li>
+          <li className="gap-1   flex  mx-5 items-center justify-center ">
+            <MdOutlineEmojiFoodBeverage size={"1.2rem"} />
+            <Link
+              id="drinks"
+              onClick={(e) => changeCategory(e.target.id)}
+              className={`${
+                category === "drinks" && "text-green-600 border-green-700"
+              }   py-4   border-b-2  rounded-t-lg  hover:text-green-600`}
+            >
+              Drinks
+            </Link>
+          </li>
+        </ul>
+      </div>
       <div className="flex justify-end my-2">
         {showAddForm ? (
           <div

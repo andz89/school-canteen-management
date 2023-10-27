@@ -13,6 +13,7 @@ const AddFoodForm = ({ hideAddForm }) => {
     description: "",
     image_one: "",
     image_two: "",
+    category: "",
   });
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -36,6 +37,7 @@ const AddFoodForm = ({ hideAddForm }) => {
       const food_name = foodData.food_name;
       const price = foodData.price;
       const description = foodData.description;
+      const category = foodData.category;
 
       formData.append("image_one", image_one);
       formData.append("image_two", image_two);
@@ -43,12 +45,15 @@ const AddFoodForm = ({ hideAddForm }) => {
       formData.append("food_name", food_name);
       formData.append("price", price);
       formData.append("description", description);
+      formData.append("category", category);
 
       try {
         const dataFromServer = await addFood(formData).unwrap();
 
         const data = {
           food_name: dataFromServer.food.food_name,
+          category: dataFromServer.food.category,
+
           price: dataFromServer.food.price,
           description: dataFromServer.food.description,
           _id: dataFromServer.food._id,
@@ -89,7 +94,7 @@ const AddFoodForm = ({ hideAddForm }) => {
     <>
       {addFoodLading && <LoadingSpinner />}
       <form className="my-5">
-        <div className="relative z-0 w-full mb-6 group">
+        <div className="relative z-0 w-full mb-3 group">
           <input
             onChange={onChange}
             type="text"
@@ -105,6 +110,19 @@ const AddFoodForm = ({ hideAddForm }) => {
           >
             Food Name
           </label>
+        </div>
+        <div className="relative z-0 w-full mb-6 group">
+          <select
+            onChange={onChange}
+            name="category"
+            id="countries"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
+          >
+            <option>Category</option>
+            <option value="meals">Meals</option>
+            <option value="snacks">Snacks</option>
+            <option value="drinks">Drinks</option>
+          </select>
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
@@ -123,7 +141,10 @@ const AddFoodForm = ({ hideAddForm }) => {
             Price
           </label>
         </div>
-        <div className="relative z-0 w-full mb-6 group">
+        <div className="  mt-2 z-0 w-full mb-6 group flex flex-col gap-2">
+          <label htmlFor="food_name" className="  text-sm text-gray-500   ">
+            Product Image
+          </label>
           <input
             type="file"
             accept="image/*"

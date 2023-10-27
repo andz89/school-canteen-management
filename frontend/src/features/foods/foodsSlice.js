@@ -15,6 +15,7 @@ const foodsSlice = createSlice({
       },
       prepare({
         food_name,
+        category,
         price,
         description,
         createdAt,
@@ -28,6 +29,8 @@ const foodsSlice = createSlice({
             image_two,
             image_one,
             food_name,
+            category,
+
             price,
             description,
             createdAt,
