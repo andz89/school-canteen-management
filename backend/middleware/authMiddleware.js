@@ -15,7 +15,7 @@ const protect = asyncHandler(async (req, res, next) => {
       if (decoded.userId.roles[0] === "user") {
         req.user = await User.findById(decoded.userId._id).select("-password");
       }
-      if (decoded.userId.roles[0] === "organizer") {
+      if (decoded.userId.roles[0] === "admin") {
         req.user = await Organizer.findById(decoded.userId._id).select(
           "-password"
         );

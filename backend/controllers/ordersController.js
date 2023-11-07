@@ -22,18 +22,25 @@ const setNewOrder = asyncHandler(async (req, res) => {
 // @access  Private
 const getOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find();
-
-  if (orders) {
-    let userId = req.user._id.toString();
-    let user_orders = orders.filter((food) => {
-      console.log(food.details.userId);
-      return food.details.userId === userId;
-    });
-
-    res.json(user_orders);
+  if (req.user.roles[0] === "admin") {
+    if (orders) {
+      res.json(orders);
+    } else {
+      res.status(404);
+      throw new Error("foods not found");
+    }
   } else {
-    res.status(404);
-    throw new Error("foods not found");
+    if (orders) {
+      let userId = req.user._id.toString();
+      let user_orders = orders.filter((food) => {
+        return food.details.userId === userId;
+      });
+
+      res.json(user_orders);
+    } else {
+      res.status(404);
+      throw new Error("foods not found");
+    }
   }
 });
 

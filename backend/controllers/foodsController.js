@@ -57,34 +57,6 @@ const getFoods = asyncHandler(async (req, res) => {
     throw new Error("foods not found");
   }
 });
-const getPublicPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
-  res.json(posts);
-});
-const addComment = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.body.postId);
-
-  const commentData = {
-    commentId: req.body.commentId,
-    postId: req.body.postId,
-    name: req.body.name,
-    comment: req.body.comment,
-    date: req.body.date,
-    userId: req.user._id,
-  };
-  if (post) {
-    post.comments.push(commentData);
-
-    await post.save();
-
-    res.json({
-      comment: commentData,
-    });
-  } else {
-    res.status(404);
-    throw new Error("User not found");
-  }
-});
 
 const removeFood = asyncHandler(async (req, res) => {
   const foodId = req.body.foodId;
@@ -108,51 +80,6 @@ const removeFood = asyncHandler(async (req, res) => {
   }
 });
 
-const removeComment = asyncHandler(async (req, res) => {
-  const postId = req.body.postId;
-  const commentId = req.body.commentId;
-
-  try {
-    // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.
-    const post = await Post.findById(postId);
-    // Check if the post was found and removed successfully.
-    if (!post) {
-      return res.status(404).json({ message: "comment not found" });
-    }
-
-    //if the owner use delete function
-    if (post.user.toString() === req.user._id.toString()) {
-      console.log("nathc");
-      const new_comment = post.comments.filter((comment) => {
-        return comment.commentId !== commentId;
-      });
-
-      post.comments = new_comment;
-      await post.save();
-      res.json({ message: "Post removed successfully" });
-    } else {
-      //get the comment fron the post
-      const result = post.comments.filter((comment) => {
-        return comment.commentId === commentId;
-      });
-
-      // check the owner of the comment
-      if (result[0].userId.toString() === req.user._id.toString()) {
-        const new_comment = post.comments.filter((comment) => {
-          return comment.commentId !== commentId;
-        });
-
-        post.comments = new_comment;
-        await post.save();
-        res.json({ message: "Post removed successfully" });
-      } else {
-        res.status(500).json({ error: error.message });
-      }
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 const editFood = asyncHandler(async (req, res) => {
   const foodId = req.body.foodId;
 
