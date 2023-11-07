@@ -20,6 +20,7 @@ const addFoodToCart = asyncHandler(async (req, res) => {
   }
 
   const foodCart = await Cart.create({
+    buyerId: req.user._id,
     food_name: req.body.food_name,
     price: req.body.price,
     description: req.body.description,
@@ -39,10 +40,12 @@ const getFoodsFromCart = asyncHandler(async (req, res) => {
   const carts = await Cart.find();
 
   if (carts) {
-    // carts.forEach((element) => {
-    //   element.image_one = process.env.DOMAIN + element.image_one;
-    // });
-    res.json(carts);
+    let userId = req.user._id.toString();
+    let userCart = carts.filter((food) => {
+      return food.buyerId === userId;
+    });
+
+    res.json(userCart);
   } else {
     res.status(404);
     throw new Error("foods not found");
@@ -51,6 +54,8 @@ const getFoodsFromCart = asyncHandler(async (req, res) => {
 
 const removeFoodToCart = asyncHandler(async (req, res) => {
   const foodId = req.body.cartId;
+  console.log(foodId);
+  console.log("=================");
 
   try {
     // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.

@@ -3,15 +3,60 @@ import { useGetFoodsMutation } from "../../features/foods/foodsApiSlice";
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useAddFoodToCartMutation } from "../../features/carts/cartsApiSlice";
 
 import { foodsFetched } from "../../features/foods/foodsSlice";
 import { GiShoppingCart } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
 const FoodItem = () => {
+  const [addtoCart, { isLoading: addtoCartLoading }] =
+    useAddFoodToCartMutation();
   const { foods } = useSelector((state) => state.foods);
   const { id } = useParams();
   const [food, setFood] = useState();
+  const addFoodToCartFunc = async (data) => {
+    const foodData = {
+      food_name: data.food_name,
+      price: data.price,
+      description: data.description,
+      food_id: data._id,
+      quantity: 1,
+      orig_price: data.price,
+      image_one: removeDomainFromURL(data.image_one),
+    };
 
+    try {
+      await addtoCart(foodData).unwrap();
+      toast.success("Added to cart Successfully", {
+        position: "top-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error(error?.data?.message, {
+        position: "top-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  function removeDomainFromURL(url) {
+    const parsedURL = new URL(url);
+
+    const pathAndQuery = `${parsedURL.pathname}${parsedURL.search}${parsedURL.hash}`;
+    return pathAndQuery;
+  }
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +110,10 @@ const FoodItem = () => {
                           ₱ {e.price}
                         </div>
                       </div>{" "}
-                      <div className="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+                      <div
+                        onClick={() => addFoodToCartFunc(food)}
+                        className="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+                      >
                         Add to Cart <GiShoppingCart size={"2.0em"} />
                       </div>
                     </div>

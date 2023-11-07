@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.post("/setNewORder", protect, setNewOrder);
 
-// router.put("/removeFoodFromCart", protect, removeFoodToCart);
 router.put("/editOrder", protect, editOrder);
 
 router.route("/").get(protect, getOrders);

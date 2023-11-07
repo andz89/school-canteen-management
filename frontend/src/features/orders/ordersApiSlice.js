@@ -27,14 +27,6 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    deleteFoodFromCart: builder.mutation({
-      query: (data) => ({
-        url: `${ORDER_URL}/removeFoodFromCart`,
-        method: "PUT",
-        body: data,
-      }),
-    }),
-
     editOrder: builder.mutation({
       query: (data) => ({
         url: `${ORDER_URL}/editOrder`,

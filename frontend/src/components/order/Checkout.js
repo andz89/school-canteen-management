@@ -22,6 +22,7 @@ const Checkout = ({ orders, setCheckout, doneCheckout }) => {
         subtotal: subtotal,
         buyerName: userInfo.data.user.name,
         buyerEmail: userInfo.data.user.email,
+        userId: userInfo.data.user.userId,
       },
     };
 
