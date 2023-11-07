@@ -17,13 +17,12 @@ const FoodItem = () => {
   const [food, setFood] = useState();
   const addFoodToCartFunc = async (data) => {
     const foodData = {
-      food_name: data.food_name,
-      price: data.price,
-      description: data.description,
-      food_id: data._id,
+      food_name: data[0].food_name,
+      price: data[0].price,
+      description: data[0].description,
       quantity: 1,
-      orig_price: data.price,
-      image_one: removeDomainFromURL(data.image_one),
+      orig_price: data[0].price,
+      image_one: removeDomainFromURL(data[0].image_one),
     };
 
     try {
@@ -80,15 +79,17 @@ const FoodItem = () => {
   return (
     <>
       <Header />
+      <div className="bg-slate-500  p-2        text-white font-semibold">
+        <Link className="cursor-pointe hover:underline" to={"/"}>
+          Back to List
+        </Link>
+      </div>
       <div className="mt-3 flex flex-col justify-center items-center mx-auto">
-        <div className="bg-slate-500 p-2 text-center rounded cursor-pointer    text-white font-semibold">
-          <Link to={"/"}>Back to List</Link>
-        </div>
         <div>
           {food.map((e) => (
             <div className="flex    sm:w-[650px]    " key={e._id}>
               <div className="p-4 mx-auto">
-                <div className="bg-white   border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className="bg-green-100   border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                   <img
                     className="rounded-t-lg"
                     src={e.image_one}

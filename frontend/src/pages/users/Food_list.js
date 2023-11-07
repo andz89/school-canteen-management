@@ -147,11 +147,11 @@ const Food_list = () => {
               </li>
             </ul>
           </div>
-          <div className="flex justify-center   flex-wrap w-full p-5 gap-2 bg-green-100  ">
+          <div className="flex justify-center   flex-wrap w-full p-5 gap-2  ">
             {categorized_foods.map((food) => (
               <div
                 key={food._id}
-                className="bg-white hover:bg-slate-100 w-[300px]  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  "
+                className="bg-green-100  hover:bg-slate-100 w-[300px]  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  "
               >
                 <Link to={"/foodItem/" + food._id}>
                   <img
