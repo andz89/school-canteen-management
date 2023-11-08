@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { FaStar, FaPlus } from "react-icons/fa";
+import { useSetNewReviewMutation } from "../../features/reviews/reviewsApiSlice";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 const Reviews = () => {
+  const { id } = useParams();
+
+  const [setNewReview, { isLoading: setNewReviewLoading }] =
+    useSetNewReviewMutation();
   const [stars, setStars] = useState([]);
   const [countStar, setCountStar] = useState(5);
-
+  const [message, setMessage] = useState("");
   useEffect(() => {
     const starArray = [];
     for (let i = 1; i <= countStar; i++) {
@@ -11,7 +18,37 @@ const Reviews = () => {
     }
     setStars(starArray);
   }, [countStar]);
-
+  const handleSumbitReview = async () => {
+    let data = {
+      countStars: countStar,
+      message: message,
+      orderId: id,
+    };
+    try {
+      await setNewReview({ data }).unwrap();
+      toast.success("Order sent Successfully", {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("Something went wrong", {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
   return (
     <div>
       <div className="text-center">
@@ -39,6 +76,7 @@ const Reviews = () => {
           Your feedback <div className="flex  gap-1  ">{stars}</div>
         </label>
         <textarea
+          onChange={(e) => setMessage(e.target.value)}
           id="message"
           rows="4"
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
@@ -63,7 +101,10 @@ const Reviews = () => {
           <option value="1">1 Star</option>
         </select>
         <div className="flex justify-end">
-          <div className="bg-green-700 p-2 cursor-pointer rounded font-semibold text-white hover:bg-green-600">
+          <div
+            onClick={() => handleSumbitReview()}
+            className="bg-green-700 p-2 cursor-pointer rounded font-semibold text-white hover:bg-green-600"
+          >
             Submit Review
           </div>
         </div>

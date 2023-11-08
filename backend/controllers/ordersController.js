@@ -44,22 +44,6 @@ const getOrders = asyncHandler(async (req, res) => {
   }
 });
 
-const removeFoodToCart = asyncHandler(async (req, res) => {
-  const foodId = req.body.cartId;
-
-  try {
-    // Use async/await with findByIdAndRemove to ensure proper handling of asynchronous code.
-    const removedCart = await Cart.findByIdAndRemove(foodId);
-    // Check if the Cart was found   and removed successfully.
-    if (!removedCart) {
-      return res.status(404).json({ message: "cart not found" });
-    }
-
-    res.json({ message: "item removed successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 const editOrder = asyncHandler(async (req, res) => {
   const orderId = req.body.orderId;
   const status = req.body.status;
