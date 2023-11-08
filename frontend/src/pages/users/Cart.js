@@ -249,7 +249,7 @@ const Food_list = () => {
       });
     }
   };
-  console.log(carts);
+
   return (
     <>
       {deleteLoading && <LoadingSpinner />}

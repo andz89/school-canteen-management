@@ -17,6 +17,7 @@ const FoodItem = () => {
   const [food, setFood] = useState();
   const addFoodToCartFunc = async (data) => {
     const foodData = {
+      food_id: data[0]._id,
       food_name: data[0].food_name,
       price: data[0].price,
       description: data[0].description,

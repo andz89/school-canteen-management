@@ -37,7 +37,7 @@ const Header = () => {
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <img src={logo} className=" w-24" />
               <div className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                SSCT School Canteen Management
+                SNSU School Canteen Management
               </div>
             </div>
           </Link>

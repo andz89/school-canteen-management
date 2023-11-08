@@ -127,7 +127,9 @@ const Order = () => {
               </table>
               <div className="flex justify-between items-center">
                 <div className="text-slate-600 text-[14px] ">
-                  reference code: {order.details.ref}{" "}
+                  {order.details.ref === "pay-on-pickup"
+                    ? "pay-on-pickup"
+                    : "reference code: " + order.details.ref}
                 </div>
                 <div className=" bg-slate-300   font-semibold  p-2 rounded text-center text-slate-800   my-1 w-[200px] ">
                   Subtotal: ₱ {order.details.subtotal}
