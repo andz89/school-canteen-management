@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useAddFoodToCartMutation } from "../../features/carts/cartsApiSlice";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import ReviewButton from "../../components/ReviewButton";
 
 const Food_list = () => {
   const [category, setCategory] = useState("meals");
@@ -99,6 +100,7 @@ const Food_list = () => {
   };
   return (
     <>
+      <ReviewButton />
       <Header />
       {addtoCartLoading && <LoadingSpinner />}
       {getFoodsLoading ? (

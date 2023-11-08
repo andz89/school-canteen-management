@@ -22,6 +22,9 @@ import Cart from "./pages/users/Cart";
 import Order from "./pages/users/Order";
 import PickupOders from "./pages/admin/PickupOrders";
 import CompleteOrders from "./pages/admin/CompleteOrders";
+import ReviewForm from "./pages/users/ReviewForm";
+import ReviewPage from "./pages/users/ReviewPage";
+
 function App() {
   return (
     <>
@@ -47,6 +50,8 @@ function App() {
                   element={<UpdatePasswordUser />}
                 />
                 <Route path="/foodItem/:id" element={<FoodItem />} />
+                <Route path="/reviewForm/:id" element={<ReviewForm />} />
+                <Route path="/reviewPage" element={<ReviewPage />} />
               </Route>
 
               <Route path="" element={<Private allowedRoles={["admin"]} />}>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useGetOrdersMutation } from "../../features/orders/ordersApiSlice";
 import { ordersFetched } from "../../features/orders/ordersSlice";
 import { parseISO, formatDistanceToNow, format } from "date-fns";
+import { Link } from "react-router-dom";
 const Order = () => {
   const [getOrders, { isLoading: getOrdersLoading }] = useGetOrdersMutation();
   const { orders } = useSelector((state) => state.orders);
@@ -55,15 +56,26 @@ const Order = () => {
               <div className="text-slate-600"> {timeAgo(order.createdAt)} </div>
 
               <div className="flex justify-between items-center gap-3">
-                <div
-                  className={` uppercase font-semibold  p-2 rounded text-center    my-1  ${
-                    order.details.status === "complete"
-                      ? "bg-green-700 text-slate-100"
-                      : "bg-yellow-300 text-slate-800"
-                  }`}
-                >
-                  {order.details.status}
+                <div className="flex justify-center items-center gap-2">
+                  <div
+                    className={` uppercase font-semibold  p-2 rounded text-center    my-1  ${
+                      order.details.status === "complete"
+                        ? "bg-green-700 text-slate-100"
+                        : "bg-yellow-300 text-slate-800"
+                    }`}
+                  >
+                    {order.details.status}
+                  </div>
+                  {order.details.status === "complete" && (
+                    <Link
+                      to={`/reviewForm/${order._id}`}
+                      className="hover:bg-green-300  text-green-800 flex items-center  gap-1 bg-green-200 p-2 rounded text-sm"
+                    >
+                      Send a review
+                    </Link>
+                  )}
                 </div>
+
                 <div className="text-slate-600 text-[14px]">
                   Order Id: {order._id}{" "}
                 </div>
