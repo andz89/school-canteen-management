@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaPlus } from "react-icons/fa";
 import { useGetReviewsMutation } from "../../features/reviews/reviewsApiSlice";
 import { parseISO, formatDistanceToNow, format } from "date-fns";
-
+import Header from "../../components/Header";
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [getReviews, { isLoading: getReviewsLoading }] =
@@ -54,7 +54,9 @@ const Reviews = () => {
           </div>
 
           <div className="p-6">
-            <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+            <h4 className="mb-4 text-2xl font-semibold">
+              {review.details.userName}
+            </h4>
             <hr />
             <p className="mt-4">
               <svg
@@ -74,6 +76,7 @@ const Reviews = () => {
   ));
   return (
     <div>
+      <Header />
       <div className="text-center">
         <h2 className="mt-4 text-2xl text-green-700 font-semibold">
           Customers' Reviews
@@ -91,7 +94,7 @@ const Reviews = () => {
         </p>
       </div>
       <div>
-        <div className="flex   flex-wrap justify-center gap-3 items-center my-5 w-full">
+        <div className="flex   flex-wrap justify-center items-center gap-3 items-center my-5 w-full">
           {renderReviews}
         </div>
       </div>

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaPlus } from "react-icons/fa";
 import { useSetNewReviewMutation } from "../../features/reviews/reviewsApiSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
+import LoadingSpinner from "../../components/LoadingSpinner";
 const Reviews = () => {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [setNewReview, { isLoading: setNewReviewLoading }] =
     useSetNewReviewMutation();
   const [stars, setStars] = useState([]);
@@ -26,6 +28,7 @@ const Reviews = () => {
     };
     try {
       await setNewReview({ data }).unwrap();
+      navigate("/reviewPage");
       toast.success("Order sent Successfully", {
         position: "top-left",
         autoClose: 2000,
@@ -51,6 +54,8 @@ const Reviews = () => {
   };
   return (
     <div>
+      {setNewReviewLoading && <LoadingSpinner />}
+      <Header />
       <div className="text-center">
         <h2 className="mt-4 text-2xl text-green-700 font-semibold">
           Customer's Reviews
