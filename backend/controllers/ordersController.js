@@ -2,7 +2,8 @@ import asyncHandler from "express-async-handler";
 import dotenv from "dotenv";
 dotenv.config();
 import Order from "../models/ordersModel.js";
-import { deleteImage } from "../helper/deleteImage.js";
+import { format } from "date-fns";
+
 // @desc    add Post
 // @route   POST /api/users/addpost
 // @access  Private
@@ -60,12 +61,15 @@ const editOrder = asyncHandler(async (req, res) => {
 
     // Mark the 'details' field as modified
     order.markModified("details");
+    order.markModified("updatedAt");
+
     // Save the updated order.
     const updatedOrder = await order.save();
 
     // Respond with the updated order data.
     res.json(updatedOrder);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 });

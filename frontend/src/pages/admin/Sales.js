@@ -10,7 +10,7 @@ import { parseISO, formatDistanceToNow, parse, format } from "date-fns";
 const Sales = () => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(new Date());
   const [getOrders, { isLoading: getOrdersLoading }] = useGetOrdersMutation();
 
   const setDateFromDatePicker = (dateString) => {
@@ -43,11 +43,19 @@ const Sales = () => {
   }, []);
   const { orders } = useSelector((state) => state.orders);
   const selected_orders = orders.filter((order) => {
+    const itemDate = new Date(order.updatedAt);
+    console.log(setDateFromDatePicker(itemDate));
+    // return (
+    //   setDateFromOrder(order.createdAt) === setDateFromDatePicker(startDate) &&
+    //   order.details.status === "complete"
+    // );
     return (
-      setDateFromOrder(order.createdAt) === setDateFromDatePicker(startDate)
+      setDateFromDatePicker(itemDate) >= setDateFromDatePicker(startDate) &&
+      setDateFromDatePicker(itemDate) <= setDateFromDatePicker(endDate) &&
+      order.details.status === "complete"
     );
   });
-  console.log(selected_orders);
+
   return (
     <div>
       <Label>Sales</Label>
@@ -88,20 +96,28 @@ const Sales = () => {
           Get Sales
         </div>
       </div>
-      {setDateFromDatePicker(startDate)} : ₱{" "}
-      {selected_orders.reduce((accumulator, order) => {
-        return accumulator + order.details.subtotal;
-      }, 0)}
+      <div>
+        <div className="bg-green-700 text-white text-3xl p-3 font-bold rounded text-center w-[200px] mt-5">
+          ₱{" "}
+          {selected_orders.reduce((accumulator, order) => {
+            return accumulator + order.details.subtotal;
+          }, 0)}
+        </div>
+      </div>
+
       <div>
         {selected_orders.map((order) => (
           <div
             key={order._id}
             className="my-5 p-2 bg-green-100 relative overflow-x-auto w-full"
           >
-            <div className="flex p-2 justify-between">
+            <div className="flex p-2 justify-between flex-col">
               <div className="text-slate-600">
-                {" "}
-                {setDateFromOrder(order.createdAt)}{" "}
+                date of order: {setDateFromOrder(order.createdAt)}
+              </div>
+
+              <div className="text-slate-600">
+                complete order on: {setDateFromOrder(order.updatedAt)}
               </div>
             </div>
 
