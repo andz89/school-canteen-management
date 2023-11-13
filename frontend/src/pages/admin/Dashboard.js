@@ -49,9 +49,7 @@ const Dashboard = () => {
                 <th scope="col" className="px-6 py-3">
                   Total
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Action
-                </th>
+             
               </tr>
             </thead>
             <tbody>
@@ -85,14 +83,7 @@ const Dashboard = () => {
                 </td>
                 <td className="px-6 py-4"> {orders.length}</td>
 
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    View
-                  </a>
-                </td>
+                
               </tr>
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetOrdersMutation } from "../../features/orders/ordersApiSlice";
@@ -8,14 +8,20 @@ import { Link } from "react-router-dom";
 const Order = () => {
   const [getOrders, { isLoading: getOrdersLoading }] = useGetOrdersMutation();
   const { orders } = useSelector((state) => state.orders);
-  const orders_reversed = [...orders].reverse();
+  const [copyOfOrders, setCopyOfOrders] = useState([]);
+  const [orderStatus, setOrderStatus] = useState("preparing");
 
+  const orders_reversed = [...copyOfOrders].reverse();
+  const preparingOrders = orders_reversed.filter((order) => {
+    console.log(order.details.status);
+    return order.details.status === orderStatus;
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getOrders().unwrap();
-
+        setCopyOfOrders(data);
         dispatch(ordersFetched(data));
       } catch (error) {
         console.error(error);
@@ -41,14 +47,48 @@ const Order = () => {
   //   const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");
   //   return formattedDate;
   // };
-
+  const handleChangeTab = (stat) => {
+    setOrderStatus(stat);
+  };
   return (
     <>
       {" "}
       <Header />
-      <div className="flex justify-between items-center p-2 font-semibold   sticky top-0 z-10">
+      <div className="flex  justify-around items-center p-1 mt-5 w-full  sm:w-[78%]  mx-auto  font-semibold cursor-pointer">
+        <div
+          onClick={() => handleChangeTab("preparing")}
+          className={` ${
+            orderStatus === "preparing"
+              ? "bg-white border-b-4 border-x-0 border-t-0  border-green-200"
+              : "    "
+          }  w-full text-center p-2 hover:bg-green-200  text-[13px]`}
+        >
+          Preparing
+        </div>
+        <div
+          onClick={() => handleChangeTab("ready to pick up")}
+          className={` ${
+            orderStatus === "ready to pick up"
+              ? "bg-white border-b-4 border-x-0 border-t-0  border-green-200"
+              : "    "
+          }  w-full text-center p-2 hover:bg-green-200  text-[13px]`}
+        >
+          to pick up
+        </div>
+        <div
+          onClick={() => handleChangeTab("complete")}
+          className={` ${
+            orderStatus === "complete"
+              ? "bg-white border-b-4 border-x-0 border-t-0  border-green-200"
+              : "    "
+          }  w-full text-center p-2 hover:bg-green-200  text-[13px]`}
+        >
+          Complete
+        </div>
+      </div>
+      <div className="flex justify-between items-center p-2 font-semibold   sticky top-0 z-10 w-full sm:w-[90%] mx-auto">
         <div className="relative overflow-x-auto w-full">
-          {orders_reversed.map((order) => (
+          {preparingOrders.map((order) => (
             <div
               key={order._id}
               className="my-5 p-2 bg-green-100 relative overflow-x-auto w-full"

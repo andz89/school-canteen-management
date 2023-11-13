@@ -83,6 +83,7 @@ const Orders = () => {
     <div>
       {editOrderLoading && <LoadingSpinner />}
       <Label>Orders</Label>
+
       <div className="flex  justify-center items-center p-2 font-semibold   sticky top-0 z-10">
         {getOrdersLoading ? (
           <MiniLoading />
