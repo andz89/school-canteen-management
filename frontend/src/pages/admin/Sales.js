@@ -12,7 +12,17 @@ const Sales = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [getOrders, { isLoading: getOrdersLoading }] = useGetOrdersMutation();
+  const setDisplayDateToClient = (dateString) => {
+    let formattedDate = "";
 
+    // Parse the incoming date string (assuming it's in a valid format)
+    const parsedDate = new Date(dateString);
+
+    // Format the date to display in "MMMM d, yyyy" format
+    formattedDate = format(parsedDate, "MMMM d, yyyy");
+
+    return formattedDate;
+  };
   const setDateFromDatePicker = (dateString) => {
     let data = "";
     // Format the date to display in "MM/dd/yyyy" format
@@ -43,15 +53,9 @@ const Sales = () => {
   }, []);
   const { orders } = useSelector((state) => state.orders);
   const selected_orders = orders.filter((order) => {
-    const itemDate = new Date(order.updatedAt);
-    console.log(setDateFromDatePicker(itemDate));
-    // return (
-    //   setDateFromOrder(order.createdAt) === setDateFromDatePicker(startDate) &&
-    //   order.details.status === "complete"
-    // );
     return (
-      setDateFromDatePicker(itemDate) >= setDateFromDatePicker(startDate) &&
-      setDateFromDatePicker(itemDate) <= setDateFromDatePicker(endDate) &&
+      setDateFromOrder(order.updatedAt) >= setDateFromDatePicker(startDate) &&
+      setDateFromOrder(order.updatedAt) <= setDateFromDatePicker(endDate) &&
       order.details.status === "complete"
     );
   });
@@ -69,7 +73,7 @@ const Sales = () => {
           </label>
           <DatePicker
             className="outline-none border border-green-500 p-1 rounded"
-            dateFormat="MM/dd/yyyy"
+            dateFormat="MMMM d, yyyy"
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             selectsStart
@@ -83,7 +87,7 @@ const Sales = () => {
           </label>
           <DatePicker
             className="outline-none border border-green-500 p-1 rounded"
-            dateFormat="MM/dd/yyyy"
+            dateFormat="MMMM d, yyyy"
             selected={endDate}
             onChange={(date) => setEndDate(date)}
             selectsEnd
@@ -92,12 +96,14 @@ const Sales = () => {
             minDate={startDate}
           />
         </div>
-        <div className="bg-green-700 font-semibold px-2 p-1 rounded mt-7 text-white cursor-pointer">
-          Get Sales
-        </div>
       </div>
-      <div>
-        <div className="bg-green-700 text-white text-3xl p-3 font-bold rounded text-center w-[200px] mt-5">
+      <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+      <div className="mt-5">
+        <div className="text-slate-700">
+          Cash Received from {setDisplayDateToClient(startDate)} to{" "}
+          {setDisplayDateToClient(endDate)}
+        </div>
+        <div className="bg-green-700 text-white text-3xl p-3 font-bold rounded text-center w-[200px] mt-1">
           ₱{" "}
           {selected_orders.reduce((accumulator, order) => {
             return accumulator + order.details.subtotal;
@@ -113,11 +119,11 @@ const Sales = () => {
           >
             <div className="flex p-2 justify-between flex-col">
               <div className="text-slate-600">
-                date of order: {setDateFromOrder(order.createdAt)}
+                Date of order: {setDisplayDateToClient(order.createdAt)}
               </div>
 
               <div className="text-slate-600">
-                complete order on: {setDateFromOrder(order.updatedAt)}
+                Complete order on: {setDisplayDateToClient(order.updatedAt)}
               </div>
             </div>
 

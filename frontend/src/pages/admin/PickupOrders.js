@@ -46,8 +46,16 @@ const PickupOrders = () => {
   const handleChangeStatus = async (orderId) => {
     // Update the state with the new orders array
     const status = "complete";
+    const currentDate = new Date();
+    const options = { year: "numeric", month: "long", day: "numeric" };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      currentDate
+    );
+
+    console.log(formattedDate);
     try {
-      await editOrder({ orderId, status }).unwrap();
+      await editOrder({ orderId, status, formattedDate }).unwrap();
       const updatedOrders = orders.filter((order) => order._id !== orderId);
       dispatch(ordersFetched(updatedOrders));
       navigate("/completeOrders");
