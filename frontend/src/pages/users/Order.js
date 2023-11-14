@@ -73,7 +73,7 @@ const Order = () => {
               : "    "
           }  w-full text-center p-2 hover:bg-green-200  text-[13px]`}
         >
-          to pick up
+          To pick up
         </div>
         <div
           onClick={() => handleChangeTab("complete")}
