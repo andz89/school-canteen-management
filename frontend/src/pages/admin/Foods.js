@@ -138,6 +138,12 @@ const Foods = () => {
             />
           </div>
           <div className="py-2 px-2 w-full ">
+            <div className="flex justify-end">
+              {" "}
+              <span>
+                Qty:<span className="font-bold px-1">{food.quantity}</span>
+              </span>
+            </div>
             <div>
               <small className="text-slate-500"> Published: </small>{" "}
               <TimeAgo timestamp={food.createdAt} />

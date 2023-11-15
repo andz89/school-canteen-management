@@ -18,6 +18,11 @@ const cartsSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    available: {
+      type: Boolean,
+      default: true,
+      required: false,
+    },
     orig_price: {
       type: Number,
       required: true,

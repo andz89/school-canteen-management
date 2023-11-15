@@ -14,6 +14,10 @@ const foodsSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    },
     description: {
       type: String,
       required: true,

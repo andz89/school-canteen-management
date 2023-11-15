@@ -179,12 +179,18 @@ const Food_list = () => {
                       {truncateText(food.description, maxCharacters)}
                     </p>
                   </Link>
-                  <div
-                    onClick={() => addFoodToCartFunc(food)}
-                    className="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
-                  >
-                    Add to Cart <GiShoppingCart size={"2.0em"} />
-                  </div>
+                  {food.quantity !== 0 ? (
+                    <div
+                      onClick={() => addFoodToCartFunc(food)}
+                      className="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+                    >
+                      Add to Cart <GiShoppingCart size={"2.0em"} />
+                    </div>
+                  ) : (
+                    <div className=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 cursor-not-allowed">
+                      Not Available Today
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

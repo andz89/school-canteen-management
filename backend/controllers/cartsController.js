@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import Cart from "../models/cartsModel.js";
 import { deleteImage } from "../helper/deleteImage.js";
+import Food from "../models/foodsModel.js";
+
 // @desc    add Post
 // @route   POST /api/users/addpost
 // @access  Private
@@ -44,6 +46,16 @@ const getFoodsFromCart = asyncHandler(async (req, res) => {
     let userCart = carts.filter((food) => {
       return food.buyerId === userId;
     });
+    // userCart.food_id
+    for (let i = 0; i < userCart.length; i++) {
+      let _id = userCart[i].food_id;
+      let food = await Food.findOne({ _id });
+      if (food.quantity === 0) {
+        userCart[i].available = false;
+
+        break;
+      }
+    }
 
     res.json(userCart);
   } else {

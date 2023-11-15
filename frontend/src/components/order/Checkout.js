@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSetNewOrderMutation } from "../../features/orders/ordersApiSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { toast } from "react-toastify";
 const Checkout = ({ orders, setCheckout, doneCheckout }) => {
   const navigate = useNavigate();
   const [setNewOrder, { isLoading: setNewOrderLoading }] =
@@ -37,9 +37,26 @@ const Checkout = ({ orders, setCheckout, doneCheckout }) => {
 
     try {
       const data = await setNewOrder(newOrder).unwrap();
-      setCheckout(false);
-      await doneCheckout();
-      navigate("/order");
+
+      if (data === "not available") {
+        toast.success(
+          "Some Items are not available. Please refresh the page.",
+          {
+            position: "top-left",
+            autoClose: 10000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
+      } else {
+        setCheckout(false);
+        await doneCheckout();
+        navigate("/order");
+      }
     } catch (error) {
       console.log(error);
     }

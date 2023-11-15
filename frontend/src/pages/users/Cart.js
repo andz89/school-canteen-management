@@ -296,19 +296,25 @@ const Food_list = () => {
                   >
                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                       <div className="flex items-center">
-                        <label
-                          forhtml={food.food_id}
-                          className="cursor-pointer ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center gap-2"
-                        >
-                          <input
-                            onChange={(e) => handleSelection(food)}
-                            id={food.food_id}
-                            type="checkbox"
-                            value=""
-                            className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded   dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          Select
-                        </label>
+                        {food.available ? (
+                          <label
+                            forhtml={food.food_id}
+                            className="cursor-pointer ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center gap-2"
+                          >
+                            <input
+                              onChange={(e) => handleSelection(food)}
+                              id={food.food_id}
+                              type="checkbox"
+                              value=""
+                              className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded   dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            Select
+                          </label>
+                        ) : (
+                          <div className="w-[100px] t inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-slate-700 rounded-lg hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 cursor-not-allowed">
+                            Not Available Today
+                          </div>
+                        )}
                       </div>
                     </td>
                     <td className="w-32 p-4">

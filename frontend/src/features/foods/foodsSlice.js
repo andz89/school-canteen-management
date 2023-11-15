@@ -16,6 +16,7 @@ const foodsSlice = createSlice({
       prepare({
         food_name,
         category,
+        quantity,
         price,
         description,
         createdAt,
@@ -30,7 +31,7 @@ const foodsSlice = createSlice({
             image_one,
             food_name,
             category,
-
+            quantity,
             price,
             description,
             createdAt,
@@ -50,6 +51,7 @@ const foodsSlice = createSlice({
         foodId,
         food_name,
         price,
+        quantity,
         description,
         image_one,
         image_two,
@@ -61,6 +63,8 @@ const foodsSlice = createSlice({
         existingFood.food_name = food_name;
         existingFood.description = description;
         existingFood.price = price;
+        existingFood.quantity = quantity;
+
         existingFood.image_one = image_one;
         existingFood.image_two = image_two;
         existingFood.updatedAt = updatedAt;

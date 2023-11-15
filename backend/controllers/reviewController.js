@@ -10,7 +10,6 @@ const setNewReview = asyncHandler(async (req, res) => {
 
   const order = await Order.findOne({ _id });
 
-  console.log(order.createdAt);
   data.userName = req.user.name;
   data.userEmail = req.user.email;
   data.createAt = order.createdAt;

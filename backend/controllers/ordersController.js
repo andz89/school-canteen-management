@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import Order from "../models/ordersModel.js";
 import { format } from "date-fns";
+import Food from "../models/foodsModel.js";
 
 // @desc    add Post
 // @route   POST /api/users/addpost
@@ -10,13 +11,35 @@ import { format } from "date-fns";
 
 const setNewOrder = asyncHandler(async (req, res) => {
   const { orders, details } = req.body;
+  let available = true;
+  for (let i = 0; i < orders.length; i++) {
+    let _id = orders[i].food_id;
+    let food = await Food.findOne({ _id });
+    if (food.quantity === 0) {
+      available = false;
+      console.log(available);
+      break;
+    }
 
-  const newOrder = await Order.create({
-    orders: orders,
-    details: details,
-  });
+    food.quantity = food.quantity - 1;
 
-  res.json({ newOrder });
+    await food.save();
+  }
+
+  if (available === true) {
+    const newOrder = await Order.create({
+      orders: orders,
+      details: details,
+    });
+
+    res.json({ newOrder });
+  } else {
+    console.log("hrer");
+    let data = {
+      msg: "not available",
+    };
+    res.json("not available");
+  }
 });
 // @desc    Get organizer posts
 // @route   GET /api/posts

@@ -14,6 +14,8 @@ const EditFoodForm = ({ handleHideEditForm, editFoodId }) => {
 
   const [food_name, setFood_name] = useState(foodToEdit[0].food_name);
   const [price, setPrice] = useState(foodToEdit[0].price);
+  const [quantity, setQuantity] = useState(foodToEdit[0].quantity);
+
   const [description, setDescription] = useState(foodToEdit[0].description);
   const [image_one, setImageOne] = useState();
   const [image_two, setImageTwo] = useState();
@@ -21,6 +23,8 @@ const EditFoodForm = ({ handleHideEditForm, editFoodId }) => {
   const dispatch = useDispatch();
   const onFood_nameChanged = (e) => setFood_name(e.target.value);
   const onPriceChanged = (e) => setPrice(e.target.value);
+  const onQtyChanged = (e) => setQuantity(e.target.value);
+
   const onDescriptionChanged = (e) => setDescription(e.target.value);
   const onImageOneChanged = (e) => setImageOne(e.target.files[0]);
   const onImageTwoChanged = (e) => setImageTwo(e.target.files[0]);
@@ -39,14 +43,17 @@ const EditFoodForm = ({ handleHideEditForm, editFoodId }) => {
 
       formData.append("food_name", food_name);
       formData.append("price", price);
+      formData.append("quantity", quantity);
+
       formData.append("description", description);
       try {
         const editFoodITem = await editFood(formData).unwrap();
-        console.log(editFoodITem.image_one);
+
         const data = {
           foodId,
           food_name,
           price,
+          quantity,
           description,
           image_one: editFoodITem.image_one,
           image_two: editFoodITem.image_two,
@@ -146,7 +153,24 @@ const EditFoodForm = ({ handleHideEditForm, editFoodId }) => {
                 onChange={onPriceChanged}
               />
             </div>
-
+            <div>
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Qty:
+              </label>
+              <input
+                type="number"
+                id="first_name"
+                className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Big Event this coming 2023"
+                required
+                name="foodPrice"
+                value={quantity}
+                onChange={onQtyChanged}
+              />
+            </div>
             <div>
               <label
                 htmlFor="message"

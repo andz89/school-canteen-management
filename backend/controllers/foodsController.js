@@ -32,6 +32,8 @@ const addFood = asyncHandler(async (req, res) => {
     category: req.body.category,
 
     price: req.body.price,
+    quantity: req.body.quantity,
+
     description: req.body.description,
     image_one: req.body.image_one,
     image_two: req.body.image_two,
@@ -111,6 +113,7 @@ const editFood = asyncHandler(async (req, res) => {
     // Update the food's properties based on the request body data.
     food.food_name = req.body.food_name;
     food.price = req.body.price;
+    food.quantity = req.body.quantity;
 
     food.description = req.body.description;
 

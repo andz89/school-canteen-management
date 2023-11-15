@@ -14,6 +14,7 @@ const AddFoodForm = ({ hideAddForm }) => {
     image_one: "",
     image_two: "",
     category: "",
+    quantity: 10,
   });
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -38,6 +39,7 @@ const AddFoodForm = ({ hideAddForm }) => {
       const price = foodData.price;
       const description = foodData.description;
       const category = foodData.category;
+      const quantity = foodData.quantity;
 
       formData.append("image_one", image_one);
       formData.append("image_two", image_two);
@@ -46,6 +48,7 @@ const AddFoodForm = ({ hideAddForm }) => {
       formData.append("price", price);
       formData.append("description", description);
       formData.append("category", category);
+      formData.append("quantity", quantity);
 
       try {
         const dataFromServer = await addFood(formData).unwrap();
@@ -53,6 +56,7 @@ const AddFoodForm = ({ hideAddForm }) => {
         const data = {
           food_name: dataFromServer.food.food_name,
           category: dataFromServer.food.category,
+          quantity: dataFromServer.food.quantity,
 
           price: dataFromServer.food.price,
           description: dataFromServer.food.description,
@@ -123,6 +127,23 @@ const AddFoodForm = ({ hideAddForm }) => {
             <option value="snacks">Snacks</option>
             <option value="drinks">Drinks</option>
           </select>
+        </div>
+        <div className="relative z-0 w-full mb-6 group">
+          <input
+            onChange={onChange}
+            type="Number"
+            name="quantity"
+            id="quantity"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            htmlFor="Quantity"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Quantity
+          </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
