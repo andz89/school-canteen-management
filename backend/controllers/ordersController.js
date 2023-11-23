@@ -17,7 +17,7 @@ const setNewOrder = asyncHandler(async (req, res) => {
     let food = await Food.findOne({ _id });
     if (food.quantity === 0) {
       available = false;
-      console.log(available);
+
       break;
     }
 
@@ -88,7 +88,7 @@ const editOrder = asyncHandler(async (req, res) => {
 
     // Save the updated order.
     const updatedOrder = await order.save();
-
+    console.log(updatedOrder);
     // Respond with the updated order data.
     res.json(updatedOrder);
   } catch (error) {

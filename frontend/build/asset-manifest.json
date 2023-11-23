@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.33c3110f.css",
-    "main.js": "/static/js/main.d9b98a68.js",
+    "main.css": "/static/css/main.d6e24d44.css",
+    "main.js": "/static/js/main.e505d252.js",
     "static/media/ssct-logo.jpg": "/static/media/ssct-logo.2dc88b829b6d7eab816d.jpg",
+    "static/media/gcash.jpg": "/static/media/gcash.23ff70ad77d76fb98179.jpg",
     "index.html": "/index.html",
-    "main.33c3110f.css.map": "/static/css/main.33c3110f.css.map",
-    "main.d9b98a68.js.map": "/static/js/main.d9b98a68.js.map"
+    "main.d6e24d44.css.map": "/static/css/main.d6e24d44.css.map",
+    "main.e505d252.js.map": "/static/js/main.e505d252.js.map"
   },
   "entrypoints": [
-    "static/css/main.33c3110f.css",
-    "static/js/main.d9b98a68.js"
+    "static/css/main.d6e24d44.css",
+    "static/js/main.e505d252.js"
   ]
 }

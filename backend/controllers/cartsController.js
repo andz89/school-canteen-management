@@ -12,8 +12,16 @@ import Food from "../models/foodsModel.js";
 const addFoodToCart = asyncHandler(async (req, res) => {
   const { food_id } = req.body;
   const item = await Cart.findOne({ food_id });
+  const items = await Cart.find({ food_id });
+  let food_item = false;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].buyerId === req.user._id.toString()) {
+      food_item = true;
+      break;
+    }
+  }
 
-  if (item) {
+  if (food_item) {
     throw new Error("Item is already added to cart");
   }
   if (!req.body.food_name || !req.body.price || !req.body.description) {
