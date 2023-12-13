@@ -285,6 +285,13 @@ const Food_list = () => {
               </div>
             )}
           </div>
+          {carts.length === 0 && (
+            <div className="  bg-green-200 flex justify-center m-2">
+              <div className="p-5 text-2xl font-semibold text-slate-600">
+                No food added to cart
+              </div>
+            </div>
+          )}
           <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700"></hr>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

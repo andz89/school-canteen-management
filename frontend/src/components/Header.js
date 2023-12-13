@@ -1,20 +1,23 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+
 import logo from "../assets/ssct-logo.jpg";
 import { useLogoutMutation } from "../features/authUser/usersApiSlice";
 import { logout } from "../features/authUser/authSlice";
-
+import { useEffect } from "react";
 import { ordersFetched } from "../features/orders/ordersSlice";
 import { foodsFetched } from "../features/foods/foodsSlice";
 import { cartsFetched } from "../features/carts/cartsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
+import { useGetCartMutation } from "../features/carts/cartsApiSlice";
 const Header = () => {
   const navigage = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
 
   const [logoutApiCall, { isLoading }] = useLogoutMutation();
+
   const logoutHanler = async () => {
     try {
       await logoutApiCall().unwrap();
@@ -27,7 +30,21 @@ const Header = () => {
       console.log(error);
     }
   };
+  const { carts } = useSelector((state) => state.carts);
+  const [getCart, { isLoading: getCartLoading }] = useGetCartMutation();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getCart().unwrap();
 
+        dispatch(cartsFetched(data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       {/* {isLoading && <LoadingSpinner />} */}
@@ -51,7 +68,12 @@ const Header = () => {
                     <Link to={"/"}>Foods</Link>
                   </li>
                   <li>
-                    <Link to={"/cart"}>Cart</Link>
+                    <Link to={"/cart"} className="flex gap-1">
+                      <div>Cart </div>
+                      <div className="text-center text-[12px] bg-orange-500 text-white rounded-full w-[20px]  ">
+                        {carts.length}{" "}
+                      </div>
+                    </Link>
                   </li>
                   <li>
                     <Link to={"/order"}>Orders</Link>

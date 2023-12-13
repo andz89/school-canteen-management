@@ -53,7 +53,6 @@ const Order = () => {
   };
   return (
     <>
-      {" "}
       <Header />
       <div className="flex  justify-around items-center p-1 mt-5 w-full  sm:w-[78%]  mx-auto  font-semibold cursor-pointer">
         <div
@@ -94,6 +93,27 @@ const Order = () => {
           </div>
         ) : (
           <div className="relative overflow-x-auto w-full">
+            {preparingOrders.length === 0 &&
+              orderStatus === "preparing" &&
+              getOrdersLoading === false && (
+                <div className="text-center   mt-5 bg-green-200 p-2">
+                  No order added!
+                </div>
+              )}
+            {preparingOrders.length === 0 &&
+              orderStatus === "ready to pick up" &&
+              getOrdersLoading === false && (
+                <div className="text-center   mt-5 bg-green-200 p-2">
+                  No order to pick up!
+                </div>
+              )}
+            {preparingOrders.length === 0 &&
+              orderStatus === "complete" &&
+              getOrdersLoading === false && (
+                <div className="text-center   mt-5 bg-green-200 p-2">
+                  No complete orders yet!
+                </div>
+              )}
             {preparingOrders.map((order) => (
               <div
                 key={order._id}
