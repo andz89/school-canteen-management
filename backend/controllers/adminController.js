@@ -42,7 +42,7 @@ const logoutUser = (req, res) => {
   });
   res.status(200).json({ message: "Logged out successfully" });
 };
-
+//try comment
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
