@@ -1,5 +1,5 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import logo from "../assets/ssct-logo.jpg";
 import { useLogoutMutation } from "../features/authUser/usersApiSlice";
@@ -17,7 +17,7 @@ const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
   const [logoutApiCall, { isLoading }] = useLogoutMutation();
-
+  const location = useLocation();
   const logoutHanler = async () => {
     try {
       await logoutApiCall().unwrap();
@@ -45,6 +45,14 @@ const Header = () => {
 
     fetchData();
   }, []);
+
+  const currentPathname = location.pathname;
+  const currentSearch = location.search;
+  const currentHash = location.hash;
+
+  // You can also access the entire URL string using location.pathname + location.search + location.hash
+  const currentUrl = `${location.pathname}${location.search}${location.hash}`;
+
   return (
     <>
       {/* {isLoading && <LoadingSpinner />} */}
@@ -65,10 +73,25 @@ const Header = () => {
               {userInfo.data?.user.roles[0] === "user" && (
                 <>
                   <li>
-                    <Link to={"/"}>Foods</Link>
+                    <Link
+                      to={"/"}
+                      className={` ${
+                        currentUrl === "/" ? "border-b-4 border-orange-600" : ""
+                      }`}
+                    >
+                      {" "}
+                      Foods
+                    </Link>
                   </li>
                   <li>
-                    <Link to={"/cart"} className="flex gap-1">
+                    <Link
+                      to={"/cart"}
+                      className={`flex gap-1 ${
+                        currentUrl === "/cart"
+                          ? "border-b-4 border-orange-600"
+                          : ""
+                      }`}
+                    >
                       <div>Cart </div>
                       <div className="text-center text-[12px] bg-orange-500 text-white rounded-full w-[20px]  ">
                         {carts.length}{" "}
@@ -76,10 +99,28 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to={"/order"}>Orders</Link>
+                    <Link
+                      to={"/order"}
+                      className={` ${
+                        currentUrl === "/order"
+                          ? "border-b-4 border-orange-600"
+                          : ""
+                      }`}
+                    >
+                      Orders
+                    </Link>
                   </li>
                   <li>
-                    <Link to={"/profile-user"}>Profile</Link>
+                    <Link
+                      to={"/profile-user"}
+                      className={` ${
+                        currentUrl === "/profile-user"
+                          ? "border-b-4 border-orange-600"
+                          : ""
+                      }`}
+                    >
+                      Profile
+                    </Link>
                   </li>
                 </>
               )}
